@@ -53,18 +53,7 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
     }
   }
 
-  function sortLink(key: keyof typeof sortable, label: string) {
-    const active = column === sortable[key]
-    const nextDir = !active ? 'asc' : (ascending ? 'desc' : 'asc')
-    const icon = !active ? null : ascending ? <ArrowUpIcon width={14} height={14}/> : <ArrowDownIcon width={14} height={14}/>
-    const href = `/?sort=${key}&dir=${nextDir}`
-    return (
-      <Link href={href} className={`inline-flex items-center gap-1 hover:underline ${active ? 'text-gray-900' : 'text-gray-600'}`}>
-        {label}
-        {icon}
-      </Link>
-    )
-  }
+  // table sorting headers removed in favor of SortControls toolbar
 
   function statusBadge(v: string) {
     const map: Record<string,string> = {
