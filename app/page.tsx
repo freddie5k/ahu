@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Opportunity } from '@/types/opportunity'
+import SetupNotice from '@/components/SetupNotice'
 
 export default async function Home() {
   const { data, error } = await supabase
@@ -11,6 +12,12 @@ export default async function Home() {
 
   const opportunities = (data as Opportunity[]) ?? []
 
+  const missingTable = !!error && (
+    error.message?.toLowerCase().includes('could not find the table') ||
+    error.message?.toLowerCase().includes('schema cache') ||
+    error.message?.toLowerCase().includes('relation')
+  )
+
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-6">
       <div className="flex items-center justify-between">
@@ -18,9 +25,11 @@ export default async function Home() {
         <Link href="/new" className="btn-primary">New Opportunity</Link>
       </div>
 
-      {error && (
+      {missingTable ? (
+        <SetupNotice />
+      ) : error ? (
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
-      )}
+      ) : null}
 
       <div className="grid gap-3">
         {opportunities.length === 0 && (

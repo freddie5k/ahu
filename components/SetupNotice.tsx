@@ -1,14 +1,5 @@
-AHU Opportunities Tracker — Next.js + Supabase
-
-## Setup
-
-1) Supabase
-- Project URL: set `NEXT_PUBLIC_SUPABASE_URL` to your project URL (looks like `https://xxxx.supabase.co`).
-- Anon key: in Supabase Dashboard → Project Settings → API → Project API keys → copy the `anon public` key. Set `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-- Create the table (run in Supabase SQL editor):
-
-```
-create extension if not exists "pgcrypto";
+export default function SetupNotice() {
+  const sql = `create extension if not exists "pgcrypto";
 
 do $$ begin
   if not exists (select 1 from pg_type where typname = 'opportunity_status') then
@@ -49,38 +40,32 @@ for each row execute function set_updated_at();
 alter table public.opportunities enable row level security;
 
 drop policy if exists "anon can read" on public.opportunities;
-create policy "anon can read" on public.opportunities for select to anon using (true);
+create policy "anon can read"
+on public.opportunities for select to anon using (true);
 
 drop policy if exists "anon can insert" on public.opportunities;
-create policy "anon can insert" on public.opportunities for insert to anon with check (true);
+create policy "anon can insert"
+on public.opportunities for insert to anon with check (true);
 
 drop policy if exists "anon can update" on public.opportunities;
-create policy "anon can update" on public.opportunities for update to anon using (true) with check (true);
+create policy "anon can update"
+on public.opportunities for update to anon using (true) with check (true);
 
 drop policy if exists "anon can delete" on public.opportunities;
-create policy "anon can delete" on public.opportunities for delete to anon using (true);
-```
+create policy "anon can delete"
+on public.opportunities for delete to anon using (true);
 
-2) App env
-- Copy `.env.local.example` → `.env.local` and fill values:
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on public.opportunities to anon, authenticated;`;
 
-```
-NEXT_PUBLIC_SUPABASE_URL=YOUR_URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
-```
-
-3) Run locally
-
-```
-npm run dev
-```
-
-Open `http://localhost:3000`.
-
-## Deploy
-- Vercel: add the two env vars above in Project Settings → Environment Variables; redeploy.
-- Supabase: ensure the table and policies are created. For production, tighten RLS and add proper auth.
-
-## Notes
-- This MVP uses the anon key from the browser with permissive RLS for speed. Do not use this configuration for production.
-- CRUD is implemented directly against Supabase from the client. We can switch to server actions and role-based auth next.
+  return (
+    <div className="card p-4 space-y-3">
+      <div className="text-sm text-gray-800">
+        <b>Setup needed:</b> The table <code>public.opportunities</code> was not found. Run the SQL below in Supabase → SQL editor, then reset API cache (Project Settings → API → Reset API cache) and reload this page.
+      </div>
+      <pre className="overflow-auto text-xs bg-gray-50 p-3 rounded border text-gray-800 whitespace-pre-wrap">
+{sql}
+      </pre>
+    </div>
+  )
+}
