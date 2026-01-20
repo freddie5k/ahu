@@ -89,7 +89,7 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-3">
         <div className="text-sm text-gray-600">Sorted by {sortParam} ({ascending ? 'asc' : 'desc'})</div>
         <SortControls />
       </div>
