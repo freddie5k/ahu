@@ -115,13 +115,13 @@ export default function OpportunityForm({ initial, mode }: Props) {
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-sm text-gray-700">Estimated Savings (USD)</span>
-          <input inputMode="decimal" value={estimatedSavings} onChange={(e) => setEstimatedSavings(e.target.value)} className="input" />
+          <span className="text-sm text-gray-700">Estimated Savings (EUR)</span>
+          <input inputMode="decimal" placeholder="€" value={estimatedSavings} onChange={(e) => setEstimatedSavings(e.target.value)} className="input" />
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-sm text-gray-700">Estimated Cost (USD)</span>
-          <input inputMode="decimal" value={estimatedCost} onChange={(e) => setEstimatedCost(e.target.value)} className="input" />
+          <span className="text-sm text-gray-700">Estimated Cost (EUR)</span>
+          <input inputMode="decimal" placeholder="€" value={estimatedCost} onChange={(e) => setEstimatedCost(e.target.value)} className="input" />
         </label>
       </div>
 
@@ -138,4 +138,3 @@ export default function OpportunityForm({ initial, mode }: Props) {
     </form>
   )
 }
-

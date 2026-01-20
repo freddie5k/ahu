@@ -5,6 +5,7 @@ import SetupNotice from '@/components/SetupNotice'
 import OpportunityActions from '@/components/OpportunityActions'
 import EditableCell from '@/components/EditableCell'
 import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons'
+import SortControls from '@/components/SortControls'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -78,6 +79,11 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-gray-600">Sorted by {sortParam} ({ascending ? 'asc' : 'desc'})</div>
+        <SortControls />
+      </div>
+
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
@@ -89,8 +95,8 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
                 <th className="px-3 py-2">{sortLink('priority','Priority')}</th>
                 <th className="px-3 py-2">{sortLink('target_close_date','Closing Date')}</th>
                 <th className="px-3 py-2">{sortLink('owner_name','Owner')}</th>
-                <th className="px-3 py-2">{sortLink('estimated_savings_usd','Savings')}</th>
-                <th className="px-3 py-2">{sortLink('estimated_cost_usd','Cost')}</th>
+                <th className="px-3 py-2">{sortLink('estimated_savings_usd','Savings (€)')}</th>
+                <th className="px-3 py-2">{sortLink('estimated_cost_usd','Cost (€)')}</th>
                 <th className="px-3 py-2">Actions</th>
               </tr>
             </thead>
@@ -102,14 +108,14 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="hover:bg-gray-50">
-                    <td className="px-3 py-2 w-[260px] max-w-[260px]"><EditableCell<any> id={o.id} column="title" value={o.title} kind="text" /></td>
+                    <td className="px-3 py-2 w-[260px] max-w-[260px]"><EditableCell<any> id={o.id} column="title" value={o.title} kind="text" className="font-semibold bg-blue-50 border-blue-200" /></td>
                     <td className="px-3 py-2 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
                     <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="status" value={o.status} kind="select" options={["New","Qualified","Assessing","Quoted","Won","Lost","On Hold"]} /></td>
                     <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="priority" value={o.priority} kind="select" options={["Low","Medium","High"]} /></td>
                     <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
                     <td className="px-3 py-2 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" /></td>
-                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" /></td>
+                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="€" /></td>
+                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="€" /></td>
                     <td className="px-3 py-2"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))

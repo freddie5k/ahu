@@ -7,6 +7,7 @@ type BaseProps<T> = {
   column: keyof T & string
   value: any
   className?: string
+  placeholder?: string
 }
 
 type TextProps<T> = BaseProps<T> & { kind: 'text' | 'number' | 'date' }
@@ -70,8 +71,8 @@ export default function EditableCell<T extends Record<string, any>>(props: TextP
       onChange={(e) => setVal(e.target.value)}
       onBlur={() => persist(val)}
       onKeyDown={(e) => { if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur() }}
+      placeholder={props.placeholder}
       className={`input-condensed w-full ${props.className ?? ''}`}
     />
   )
 }
-
