@@ -109,7 +109,17 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="hover:bg-gray-50">
-                    <td className="px-3 py-2 w-[260px] max-w-[260px]"><EditableCell<any> id={o.id} column="title" value={o.title} kind="text" className="font-semibold bg-blue-50 border-blue-200" /></td>
+                    <td className="px-3 py-2 w-[260px] max-w-[260px]">
+                      <div className="rounded-md bg-blue-50/70 ring-1 ring-blue-200 px-1.5 py-1">
+                        <EditableCell<any>
+                          id={o.id}
+                          column="title"
+                          value={o.title}
+                          kind="text"
+                          className="font-semibold bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
+                        />
+                      </div>
+                    </td>
                     <td className="px-3 py-2 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
                     <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="status" value={o.status} kind="select" options={["New","Qualified","Assessing","Quoted","Won","Lost","On Hold"]} /></td>
                     <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="priority" value={o.priority} kind="select" options={["Low","Medium","High"]} /></td>
