@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import type { Opportunity } from '@/types/opportunity'
 import SetupNotice from '@/components/SetupNotice'
-import OpportunityActions from '@/components/OpportunityActions'
 import SortControls from '@/components/SortControls'
 import OpportunityCard from '@/components/OpportunityCard'
 
@@ -95,10 +94,27 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
         <SortControls />
       </div>
 
+      {/* Header legend for wide screens */}
+      <div className="hidden md:block">
+        <div className="card p-2">
+          <div className="grid items-center gap-3 [grid-template-columns:2fr_1.2fr_1fr_1fr_1fr_1.2fr_1fr_1fr_auto]">
+            <div className="muted-label">Project Name</div>
+            <div className="muted-label">Site</div>
+            <div className="muted-label">Status</div>
+            <div className="muted-label">Priority</div>
+            <div className="muted-label">Closing Date</div>
+            <div className="muted-label">Owner</div>
+            <div className="muted-label">Savings</div>
+            <div className="muted-label">Cost</div>
+            <div className="muted-label text-right">Actions</div>
+          </div>
+        </div>
+      </div>
+
       {opportunities.length === 0 ? (
         <div className="text-gray-500">No opportunities yet. Create one to get started.</div>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-3">
           {opportunities.map((o) => (
             <OpportunityCard key={o.id} opp={o} />
           ))}

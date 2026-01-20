@@ -55,53 +55,45 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
     return num
   }
 
+  const gridClass = "grid items-center gap-3 [grid-template-columns:2fr_1.2fr_1fr_1fr_1fr_1.2fr_1fr_1fr_auto]"
+
   return (
-    <div className="card p-4">
-      <div className="flex items-start justify-between gap-3">
+    <div className="card p-3">
+      <div className={gridClass}>
         <input
           value={state.title}
           onChange={(e) => setState(s => ({...s, title: e.target.value}))}
           onBlur={() => persist({ title: state.title })}
-          className="text-base font-medium outline-none w-full"
+          className="input-condensed font-medium truncate"
+          placeholder="Project Name"
         />
-        <OpportunityActions id={opp.id} />
+
+        <input className="input-condensed truncate" placeholder="Site" value={state.site} onChange={(e)=>setState(s=>({...s, site: e.target.value}))} onBlur={()=>persist({site: state.site})} />
+
+        <select className="select-condensed" value={state.status} onChange={(e)=>persist({status: e.target.value as OpportunityStatus})}>
+          {statuses.map(s => <option key={s} value={s}>{s}</option>)}
+        </select>
+
+        <select className="select-condensed" value={state.priority} onChange={(e)=>persist({priority: e.target.value as OpportunityPriority})}>
+          {priorities.map(p => <option key={p} value={p}>{p}</option>)}
+        </select>
+
+        <input type="date" className="input-condensed" value={state.target_close_date ?? ''} onChange={(e)=>persist({target_close_date: e.target.value})} />
+
+        <input className="input-condensed truncate" placeholder="Owner" value={state.owner_name} onChange={(e)=>setState(s=>({...s, owner_name: e.target.value}))} onBlur={()=>persist({owner_name: state.owner_name})} />
+
+        <input inputMode="decimal" className="input-condensed" placeholder="Savings" value={state.estimated_savings_usd} onChange={(e)=>setState(s=>({...s, estimated_savings_usd: e.target.value}))} onBlur={()=>persist({estimated_savings_usd: state.estimated_savings_usd})} />
+
+        <input inputMode="decimal" className="input-condensed" placeholder="Cost" value={state.estimated_cost_usd} onChange={(e)=>setState(s=>({...s, estimated_cost_usd: e.target.value}))} onBlur={()=>persist({estimated_cost_usd: state.estimated_cost_usd})} />
+
+        <div className="justify-self-end"><OpportunityActions id={opp.id} /></div>
       </div>
 
-      <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        <Field label="Site">
-          <input className="input w-full" value={state.site} onChange={(e)=>setState(s=>({...s, site: e.target.value}))} onBlur={()=>persist({site: state.site})} />
-        </Field>
-        <Field label="Status">
-          <select className="input w-full" value={state.status} onChange={(e)=>persist({status: e.target.value as OpportunityStatus})}>
-            {statuses.map(s => <option key={s} value={s}>{s}</option>)}
-          </select>
-        </Field>
-        <Field label="Priority">
-          <select className="input w-full" value={state.priority} onChange={(e)=>persist({priority: e.target.value as OpportunityPriority})}>
-            {priorities.map(p => <option key={p} value={p}>{p}</option>)}
-          </select>
-        </Field>
-        <Field label="Closing Date">
-          <input type="date" className="input w-full" value={state.target_close_date ?? ''} onChange={(e)=>persist({target_close_date: e.target.value})} />
-        </Field>
-        <Field label="Owner">
-          <input className="input w-full" value={state.owner_name} onChange={(e)=>setState(s=>({...s, owner_name: e.target.value}))} onBlur={()=>persist({owner_name: state.owner_name})} />
-        </Field>
-        <Field label="Savings (USD)">
-          <input inputMode="decimal" className="input w-full" value={state.estimated_savings_usd} onChange={(e)=>setState(s=>({...s, estimated_savings_usd: e.target.value}))} onBlur={()=>persist({estimated_savings_usd: state.estimated_savings_usd})} />
-        </Field>
-        <Field label="Cost (USD)">
-          <input inputMode="decimal" className="input w-full" value={state.estimated_cost_usd} onChange={(e)=>setState(s=>({...s, estimated_cost_usd: e.target.value}))} onBlur={()=>persist({estimated_cost_usd: state.estimated_cost_usd})} />
-        </Field>
+      <div className="mt-2">
+        <textarea className="input-condensed w-full" placeholder="Description" value={state.description} onChange={(e)=>setState(s=>({...s, description: e.target.value}))} onBlur={()=>persist({description: state.description})} />
       </div>
 
-      <div className="mt-3">
-        <Field label="Description">
-          <textarea className="input w-full min-h-20" value={state.description} onChange={(e)=>setState(s=>({...s, description: e.target.value}))} onBlur={()=>persist({description: state.description})} />
-        </Field>
-      </div>
-
-      <div className="mt-2 text-xs text-gray-500">
+      <div className="mt-1 text-[11px] text-gray-500">
         {saving ? 'Saving…' : error ? <span className="text-red-600">{error}</span> : null}
       </div>
     </div>
@@ -116,4 +108,3 @@ function Field({ label, children }: { label: string, children: React.ReactNode }
     </label>
   )
 }
-

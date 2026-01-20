@@ -51,3 +51,12 @@ body {
 .badge-red { @apply bg-red-50 text-red-700 ring-1 ring-red-200; }
 .badge-blue { @apply bg-blue-50 text-blue-700 ring-1 ring-blue-200; }
 .badge-gray { @apply bg-gray-100 text-gray-700 ring-1 ring-gray-200; }
+
+/* Compact inputs */
+.input-condensed {
+  @apply border rounded-md px-2 py-1 h-8 bg-white border-gray-200 text-sm outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+}
+.select-condensed {
+  @apply border rounded-md px-2 py-1 h-8 bg-white border-gray-200 text-sm outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+}
+.muted-label { @apply text-[11px] uppercase tracking-wide text-gray-500; }
