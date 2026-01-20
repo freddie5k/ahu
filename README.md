@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AHU Opportunities Tracker — Next.js + Supabase
 
-## Getting Started
+## Setup
 
-First, run the development server:
+1) Supabase
+- Project URL: set `NEXT_PUBLIC_SUPABASE_URL` to your project URL (looks like `https://xxxx.supabase.co`).
+- Anon key: in Supabase Dashboard → Project Settings → API → Project API keys → copy the `anon public` key. Set `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- Create the table (run in Supabase SQL editor):
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+create type opportunity_status as enum ('New','Qualified','Assessing','Quoted','Won','Lost','On Hold');
+create type opportunity_priority as enum ('Low','Medium','High');
+
+create table if not exists public.opportunities (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  site text not null,
+  description text,
+  status opportunity_status not null default 'New',
+  priority opportunity_priority not null default 'Medium',
+  target_close_date date,
+  owner_name text,
+  estimated_savings_usd numeric(12,2),
+  estimated_cost_usd numeric(12,2),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create or replace function set_updated_at()
+returns trigger language plpgsql as $$
+begin new.updated_at = now(); return new; end; $$;
+
+drop trigger if exists trg_opportunities_updated on public.opportunities;
+create trigger trg_opportunities_updated
+before update on public.opportunities
+for each row execute function set_updated_at();
+
+alter table public.opportunities enable row level security;
+create policy if not exists "anon can read" on public.opportunities for select to anon using (true);
+create policy if not exists "anon can insert" on public.opportunities for insert to anon with check (true);
+create policy if not exists "anon can update" on public.opportunities for update to anon using (true) with check (true);
+create policy if not exists "anon can delete" on public.opportunities for delete to anon using (true);
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2) App env
+- Copy `.env.local.example` → `.env.local` and fill values:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=YOUR_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3) Run locally
 
-## Learn More
+```
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy
+- Vercel: add the two env vars above in Project Settings → Environment Variables; redeploy.
+- Supabase: ensure the table and policies are created. For production, tighten RLS and add proper auth.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- This MVP uses the anon key from the browser with permissive RLS for speed. Do not use this configuration for production.
+- CRUD is implemented directly against Supabase from the client. We can switch to server actions and role-based auth next.
