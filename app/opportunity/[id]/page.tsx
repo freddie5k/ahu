@@ -41,4 +41,5 @@ function DeleteButton({ id }: { id: string }) {
     </button>
   )
 }
-
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
