@@ -67,6 +67,7 @@ create policy "anon can delete" on public.opportunities for delete to anon using
 ```
 NEXT_PUBLIC_SUPABASE_URL=YOUR_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
+APP_PASSWORD=choose-a-temporary-password
 ```
 
 3) Run locally
@@ -80,6 +81,7 @@ Open `http://localhost:3000`.
 ## Deploy
 - Vercel: add the two env vars above in Project Settings → Environment Variables; redeploy.
 - Supabase: ensure the table and policies are created. For production, tighten RLS and add proper auth.
+ - Optional: simple password gate — set `APP_PASSWORD` to enable the access gate at `/unlock`.
 
 ## Notes
 - This MVP uses the anon key from the browser with permissive RLS for speed. Do not use this configuration for production.
