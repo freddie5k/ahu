@@ -77,8 +77,8 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
   }
 
   return (
-    <div className="mx-auto max-w-5xl p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-7xl p-6 space-y-6">
+      <div className="flex items-center justify-between px-3">
         <h1 className="text-2xl font-semibold">Opportunities</h1>
         <Link href="/new" className="btn-primary">New Opportunity</Link>
       </div>
@@ -96,7 +96,7 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
 
       {/* Header legend for wide screens */}
       <div className="hidden md:block">
-        <div className="card p-2">
+        <div className="card p-3">
           <div className="grid items-center gap-3 [grid-template-columns:2fr_1.2fr_1fr_1fr_1fr_1.2fr_1fr_1fr_auto]">
             <div className="muted-label">Project Name</div>
             <div className="muted-label">Site</div>

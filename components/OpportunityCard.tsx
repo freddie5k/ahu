@@ -89,7 +89,7 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
         <div className="justify-self-end"><OpportunityActions id={opp.id} /></div>
       </div>
 
-      <div className="mt-2">
+      <div className="mt-1">
         <textarea className="input-condensed w-full" placeholder="Description" value={state.description} onChange={(e)=>setState(s=>({...s, description: e.target.value}))} onBlur={()=>persist({description: state.description})} />
       </div>
 
