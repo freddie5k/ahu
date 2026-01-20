@@ -36,7 +36,7 @@ body {
   @apply inline-flex items-center gap-2 rounded-md bg-gray-100 text-gray-900 text-sm px-4 py-2 hover:bg-gray-200;
 }
 .card {
-  @apply rounded-lg border border-gray-200 bg-white shadow-sm;
+  @apply rounded-xl bg-white shadow-md ring-1 ring-gray-100 transition-shadow hover:shadow-lg;
 }
 
 /* Extra UI helpers */

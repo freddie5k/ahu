@@ -3,7 +3,8 @@ import { supabase } from '@/lib/supabase'
 import type { Opportunity } from '@/types/opportunity'
 import SetupNotice from '@/components/SetupNotice'
 import OpportunityActions from '@/components/OpportunityActions'
-import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons'
+import SortControls from '@/components/SortControls'
+import OpportunityCard from '@/components/OpportunityCard'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -100,47 +101,20 @@ export default async function Home({ searchParams }: { searchParams?: Search }) 
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
-      <div className="overflow-x-auto card">
-        <table className="min-w-full text-sm">
-          <thead className="bg-gray-50 sticky top-0">
-            <tr className="text-left">
-              <th className="px-3 py-2 border-b">{sortLink('title','Project Name')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('site','Site')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('status','Status')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('priority','Priority')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('target_close_date','Closing Date')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('owner_name','Owner')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('estimated_savings_usd','Savings')}</th>
-              <th className="px-3 py-2 border-b">{sortLink('estimated_cost_usd','Cost')}</th>
-              <th className="px-3 py-2 border-b">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {opportunities.length === 0 && (
-              <tr>
-                <td className="px-3 py-3 text-gray-500" colSpan={9}>No opportunities yet. Create one to get started.</td>
-              </tr>
-            )}
-            {opportunities.map((o) => (
-              <tr key={o.id} className="hover:bg-gray-50">
-                <td className="px-3 py-2 border-b">
-                  <Link href={`/opportunity/${o.id}`} className="text-blue-600 hover:underline">{o.title}</Link>
-                </td>
-                <td className="px-3 py-2 border-b">{o.site}</td>
-                <td className="px-3 py-2 border-b">{statusBadge(o.status)}</td>
-                <td className="px-3 py-2 border-b">{priorityBadge(o.priority)}</td>
-                <td className="px-3 py-2 border-b">{o.target_close_date ? new Date(o.target_close_date).toLocaleDateString() : '—'}</td>
-                <td className="px-3 py-2 border-b">{o.owner_name ?? '—'}</td>
-                <td className="px-3 py-2 border-b">{fmtMoney(o.estimated_savings_usd as any)}</td>
-                <td className="px-3 py-2 border-b">{fmtMoney(o.estimated_cost_usd as any)}</td>
-                <td className="px-3 py-2 border-b">
-                  <OpportunityActions id={o.id} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-gray-600">Sorted by {sortParam} ({ascending ? 'asc' : 'desc'})</div>
+        <SortControls />
       </div>
+
+      {opportunities.length === 0 ? (
+        <div className="text-gray-500">No opportunities yet. Create one to get started.</div>
+      ) : (
+        <div className="grid gap-4">
+          {opportunities.map((o) => (
+            <OpportunityCard key={o.id} opp={o} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
