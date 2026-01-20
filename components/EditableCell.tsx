@@ -14,14 +14,15 @@ type TextProps<T> = BaseProps<T> & { kind: 'text' | 'number' | 'date' }
 type SelectProps<T> = BaseProps<T> & { kind: 'select', options: string[] }
 
 export default function EditableCell<T extends Record<string, any>>(props: TextProps<T> | SelectProps<T>) {
-  const [val, setVal] = useState<any>(props.value ?? '')
+  const [focused, setFocused] = useState(false)
+  const [val, setVal] = useState<any>(() => initialValue(props))
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const initial = useRef(true)
 
   useEffect(() => {
     // keep in sync if parent updates
-    if (!saving) setVal(props.value ?? '')
+    if (!saving && !focused) setVal(initialValue(props))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.value])
 
@@ -41,6 +42,9 @@ export default function EditableCell<T extends Record<string, any>>(props: TextP
       const payload = { [props.column]: v }
       const { error } = await supabase.from('opportunities').update(payload).eq('id', props.id)
       if (error) throw error
+      if (props.kind === 'number') {
+        setVal(v === null ? '' : formatEUR(v))
+      }
     } catch (e: any) {
       setError(e?.message ?? 'Save failed')
     } finally {
@@ -69,10 +73,28 @@ export default function EditableCell<T extends Record<string, any>>(props: TextP
       inputMode={props.kind === 'number' ? 'decimal' : undefined}
       value={val ?? ''}
       onChange={(e) => setVal(e.target.value)}
-      onBlur={() => persist(val)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => { setFocused(false); persist(val) }}
       onKeyDown={(e) => { if (e.key === 'Enter') (e.currentTarget as HTMLInputElement).blur() }}
       placeholder={props.placeholder}
       className={`input-condensed w-full ${props.className ?? ''}`}
     />
   )
+}
+
+function initialValue<T extends Record<string, any>>(props: TextProps<T> | SelectProps<T>) {
+  if (props.kind === 'number') {
+    if (props.value === null || props.value === undefined || props.value === '') return ''
+    const n = Number(props.value)
+    return Number.isNaN(n) ? '' : formatEUR(n)
+  }
+  return props.value ?? ''
+}
+
+function formatEUR(n: number) {
+  try {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
+  } catch {
+    return `€${n.toLocaleString()}`
+  }
 }

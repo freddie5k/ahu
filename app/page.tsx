@@ -12,9 +12,10 @@ export const revalidate = 0
 
 type Search = { [key: string]: string | string[] | undefined }
 
-export default async function Home({ searchParams }: { searchParams?: Search }) {
-  const sortParam = (typeof searchParams?.sort === 'string' ? searchParams!.sort : undefined) ?? 'updated_at'
-  const dirParam = (typeof searchParams?.dir === 'string' ? searchParams!.dir : undefined) ?? 'desc'
+export default async function Home({ searchParams }: { searchParams: Promise<Search> }) {
+  const sp = await searchParams
+  const sortParam = (typeof sp?.sort === 'string' ? sp.sort : undefined) ?? 'updated_at'
+  const dirParam = (typeof sp?.dir === 'string' ? sp.dir : undefined) ?? 'desc'
 
   const sortable: Record<string, string> = {
     title: 'title',
