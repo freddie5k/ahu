@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { PencilIcon, TrashIcon } from '@/components/icons'
 
 export default function OpportunityActions({ id }: { id: string }) {
   const router = useRouter()
@@ -18,14 +19,13 @@ export default function OpportunityActions({ id }: { id: string }) {
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <Link href={`/opportunity/${id}`} title="Edit" className="text-blue-600 hover:underline" aria-label="Edit">
-        ✏️
+    <div className="flex items-center gap-1">
+      <Link href={`/opportunity/${id}`} title="Edit" aria-label="Edit" className="icon-btn">
+        <PencilIcon width={18} height={18} />
       </Link>
-      <button onClick={handleDelete} title="Delete" className="text-red-600" aria-label="Delete">
-        🗑️
+      <button onClick={handleDelete} title="Delete" aria-label="Delete" className="icon-btn text-red-600 hover:text-red-700">
+        <TrashIcon width={18} height={18} />
       </button>
     </div>
   )
 }
-

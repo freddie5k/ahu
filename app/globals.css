@@ -38,3 +38,16 @@ body {
 .card {
   @apply rounded-lg border border-gray-200 bg-white shadow-sm;
 }
+
+/* Extra UI helpers */
+.icon-btn {
+  @apply inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900;
+}
+.badge {
+  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium;
+}
+.badge-green { @apply bg-green-50 text-green-700 ring-1 ring-green-200; }
+.badge-yellow { @apply bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200; }
+.badge-red { @apply bg-red-50 text-red-700 ring-1 ring-red-200; }
+.badge-blue { @apply bg-blue-50 text-blue-700 ring-1 ring-blue-200; }
+.badge-gray { @apply bg-gray-100 text-gray-700 ring-1 ring-gray-200; }
