@@ -1,19 +1,4 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-
 export const dynamic = 'force-dynamic'
-
-async function unlock(formData: FormData) {
-  'use server'
-  const pwd = formData.get('password')?.toString() ?? ''
-  const expected = process.env.APP_PASSWORD ?? ''
-  const next = formData.get('next')?.toString() || '/'
-  if (expected && pwd === expected) {
-    cookies().set('ahu_auth', '1', { httpOnly: true, secure: true, path: '/', maxAge: 60 * 60 * 12 })
-    redirect(next)
-  }
-  redirect(`/unlock?error=1&next=${encodeURIComponent(next)}`)
-}
 
 export default async function UnlockPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const sp = await searchParams
@@ -29,7 +14,7 @@ export default async function UnlockPage({ searchParams }: { searchParams: Promi
           <div className="text-sm text-red-600">APP_PASSWORD is not set on the server. Set it in your environment to enable the gate.</div>
         )}
         {error && <div className="text-sm text-red-600">Invalid password. Try again.</div>}
-        <form action={unlock} className="space-y-3">
+        <form action="/api/unlock" method="post" className="space-y-3">
           <input type="hidden" name="next" value={next} />
           <label className="flex flex-col gap-1">
             <span className="text-sm text-gray-700">Password</span>
@@ -41,4 +26,3 @@ export default async function UnlockPage({ searchParams }: { searchParams: Promi
     </div>
   )
 }
-
