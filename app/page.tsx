@@ -4,6 +4,8 @@ import type { Opportunity } from '@/types/opportunity'
 import SetupNotice from '@/components/SetupNotice'
 import OpportunityActions from '@/components/OpportunityActions'
 import EditableCell from '@/components/EditableCell'
+import EditableStatusCell from '@/components/EditableStatusCell'
+import EditablePriorityCell from '@/components/EditablePriorityCell'
 import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons'
 import SortControls from '@/components/SortControls'
 
@@ -70,8 +72,17 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   return (
     <div className="mx-auto max-w-7xl px-6 py-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Opportunities</h1>
-        <Link href="/new" className="btn-primary">New Opportunity</Link>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Opportunities</h1>
+          <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
+        </div>
+        <Link href="/new" className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          New Opportunity
+        </Link>
       </div>
 
       {missingTable ? (
@@ -80,54 +91,68 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
-      <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-600">Sorted by {sortParam} ({ascending ? 'asc' : 'desc'})</div>
+      <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
+        <div className="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span className="text-sm text-gray-700 font-medium">Sorted by</span>
+          <span className="text-sm text-gray-900 font-semibold">{sortParam}</span>
+          <span className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-xs font-medium text-gray-700 ring-1 ring-gray-300">
+            {ascending ? '↑ Ascending' : '↓ Descending'}
+          </span>
+        </div>
         <SortControls />
       </div>
 
-      <div className="card overflow-hidden">
+      <div className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-gray-50 sticky top-0 z-10">
+            <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
               <tr className="text-left text-gray-700">
-                <th className="px-3 py-2">{sortLink('title','Project Name')}</th>
-                <th className="px-3 py-2">{sortLink('site','Site')}</th>
-                <th className="px-3 py-2">{sortLink('status','Status')}</th>
-                <th className="px-3 py-2">{sortLink('priority','Priority')}</th>
-                <th className="px-3 py-2">{sortLink('target_close_date','Closing Date')}</th>
-                <th className="px-3 py-2">{sortLink('owner_name','Owner')}</th>
-                <th className="px-3 py-2">{sortLink('estimated_savings_usd','Savings (€)')}</th>
-                <th className="px-3 py-2">{sortLink('estimated_cost_usd','Cost (€)')}</th>
-                <th className="px-3 py-2">Actions</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('title','Project Name')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('estimated_savings_usd','Savings ($)')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('estimated_cost_usd','Cost ($)')}</th>
+                <th className="px-4 py-3 font-semibold">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-3 py-4 text-gray-500">No opportunities yet. Create one to get started.</td>
+                  <td colSpan={9} className="px-4 py-6 text-center text-gray-500">No opportunities yet. Create one to get started.</td>
                 </tr>
               ) : (
                 opportunities.map((o) => (
-                  <tr key={o.id} className="hover:bg-gray-50">
-                    <td className="px-3 py-2 w-[260px] max-w-[260px]">
-                      <div className="rounded-md bg-blue-50/70 ring-1 ring-blue-200 px-1.5 py-1">
+                  <tr key={o.id} className="group hover:bg-blue-50/30 transition-colors duration-150 border-b border-gray-100 last:border-b-0">
+                    <td className="px-4 py-3 w-[260px] max-w-[260px]">
+                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-1 ring-blue-300/50 px-2.5 py-1.5 shadow-sm">
                         <EditableCell<any>
                           id={o.id}
                           column="title"
                           value={o.title}
                           kind="text"
-                          className="font-semibold bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
+                          className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
                         />
                       </div>
                     </td>
-                    <td className="px-3 py-2 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
-                    <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="status" value={o.status} kind="select" options={["New","Qualified","Assessing","Quoted","Won","Lost","On Hold"]} /></td>
-                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="priority" value={o.priority} kind="select" options={["Low","Medium","High"]} /></td>
-                    <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
-                    <td className="px-3 py-2 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="€" /></td>
-                    <td className="px-3 py-2 w-[140px]"><EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="€" /></td>
-                    <td className="px-3 py-2"><OpportunityActions id={o.id} /></td>
+                    <td className="px-4 py-3 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
+                    <td className="px-4 py-3 w-[150px]"><EditableStatusCell id={o.id} value={o.status} /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                    <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
+                    <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="$" /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="$" /></td>
+                    <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))
               )}

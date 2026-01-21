@@ -19,11 +19,21 @@ export default function OpportunityActions({ id }: { id: string }) {
   }
 
   return (
-    <div className="flex items-center gap-1">
-      <Link href={`/opportunity/${id}`} title="Edit" aria-label="Edit" className="icon-btn">
+    <div className="flex items-center gap-1.5">
+      <Link
+        href={`/opportunity/${id}`}
+        title="Edit"
+        aria-label="Edit"
+        className="inline-flex items-center justify-center rounded-md p-1.5 text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+      >
         <PencilIcon width={18} height={18} />
       </Link>
-      <button onClick={handleDelete} title="Delete" aria-label="Delete" className="icon-btn text-red-600 hover:text-red-700">
+      <button
+        onClick={handleDelete}
+        title="Delete"
+        aria-label="Delete"
+        className="inline-flex items-center justify-center rounded-md p-1.5 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
+      >
         <TrashIcon width={18} height={18} />
       </button>
     </div>
