@@ -7,9 +7,9 @@ export default async function UnlockPage({ searchParams }: { searchParams: Promi
   const hasPassword = Boolean(process.env.APP_PASSWORD)
 
   return (
-    <div className="mx-auto max-w-md p-6">
-      <div className="card p-6 space-y-4">
-        <h1 className="text-xl font-semibold">Enter Access Password</h1>
+    <div className="mx-auto max-w-md px-4 sm:px-6 py-4 sm:py-6">
+      <div className="card p-4 sm:p-6 space-y-4">
+        <h1 className="text-lg sm:text-xl font-semibold">Enter Access Password</h1>
         {!hasPassword && (
           <div className="text-sm text-red-600">APP_PASSWORD is not set on the server. Set it in your environment to enable the gate.</div>
         )}

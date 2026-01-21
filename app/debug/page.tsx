@@ -10,9 +10,9 @@ export default async function DebugPage() {
   const { data, error } = await supabase.from('opportunities').select('*').limit(1)
 
   return (
-    <div className="mx-auto max-w-3xl p-6 space-y-4">
-      <h1 className="text-xl font-semibold">Debug</h1>
-      <div className="card p-4 text-sm space-y-2">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-4 sm:py-6 space-y-4">
+      <h1 className="text-lg sm:text-xl font-semibold">Debug</h1>
+      <div className="card p-3 sm:p-4 text-xs sm:text-sm space-y-2">
         <div>Env present: {String(envOk)}</div>
         <div>Project URL host: {projectUrl.replace('https://','')}</div>
         {error ? (
