@@ -13,11 +13,11 @@ export default async function OpportunityPage({ params }: Props) {
   const opp = data as Opportunity
 
   return (
-    <div className="mx-auto max-w-3xl p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Edit Opportunity</h1>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h1 className="text-xl sm:text-2xl font-semibold">Edit Opportunity</h1>
         <div className="flex gap-2">
-          <Link href="/" className="btn-secondary">Back</Link>
+          <Link href="/" className="btn-secondary text-sm">Back</Link>
           <form action={`/opportunity/${opp.id}/delete`}>
             <DeleteButton id={opp.id} />
           </form>
@@ -36,7 +36,7 @@ function DeleteButton({ id }: { id: string }) {
   }
 
   return (
-    <button formAction={handleDelete} className="btn-secondary" aria-label="Delete opportunity">
+    <button formAction={handleDelete} className="btn-secondary text-sm" aria-label="Delete opportunity">
       Delete
     </button>
   )

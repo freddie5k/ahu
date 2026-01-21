@@ -32,12 +32,12 @@ export default function SortControls() {
   const label = useMemo(() => options.find(o => o.key === sort)?.label ?? 'Last Updated', [sort])
 
   return (
-    <div className="flex items-center gap-3 text-sm">
-      <div className="text-gray-600">Sort by</div>
+    <div className="flex items-center gap-2 sm:gap-3 text-sm">
+      <div className="hidden sm:block text-gray-600">Sort by</div>
       <select
         value={sort}
         onChange={(e) => set('sort', e.target.value)}
-        className="input h-9"
+        className="input h-9 text-xs sm:text-sm"
       >
         {options.map(o => (
           <option key={o.key} value={o.key}>{o.label}</option>

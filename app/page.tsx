@@ -70,13 +70,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Opportunities</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Opportunities</h1>
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
-        <Link href="/new" className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
+        <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -91,8 +91,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
-      <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
+        <div className="flex items-center gap-2 flex-wrap">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500">
             <line x1="8" y1="6" x2="21" y2="6"></line>
             <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -110,7 +110,72 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <SortControls />
       </div>
 
-      <div className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 overflow-hidden">
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-3">
+        {opportunities.length === 0 ? (
+          <div className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-6 text-center text-gray-500">
+            No opportunities yet. Create one to get started.
+          </div>
+        ) : (
+          opportunities.map((o) => (
+            <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-4 space-y-3">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex-1 min-w-0">
+                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-1 ring-blue-300/50 px-2.5 py-1.5 shadow-sm mb-2">
+                    <EditableCell<any>
+                      id={o.id}
+                      column="title"
+                      value={o.title}
+                      kind="text"
+                      className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-base"
+                    />
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    <EditableCell<any> id={o.id} column="site" value={o.site} kind="text" />
+                  </div>
+                </div>
+                <OpportunityActions id={o.id} />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Status</div>
+                  <EditableStatusCell id={o.id} value={o.status} />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Priority</div>
+                  <EditablePriorityCell id={o.id} value={o.priority} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Close Date</div>
+                  <EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Owner</div>
+                  <EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Savings</div>
+                  <EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="$" />
+                </div>
+                <div>
+                  <div className="text-xs text-gray-500 mb-1">Cost</div>
+                  <EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="$" />
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
