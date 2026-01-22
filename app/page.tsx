@@ -144,13 +144,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 p-4 space-y-3 hover:shadow-xl transition-shadow duration-200">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 px-2.5 py-1.5 mb-2">
+                  <div className="px-2.5 py-1.5 mb-2">
                     <EditableCell<any>
                       id={o.id}
                       column="title"
                       value={o.title}
                       kind="text"
-                      className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-base"
+                      className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-base"
                     />
                   </div>
                   <div className="text-sm text-gray-600">
@@ -194,7 +194,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       {/* Desktop Table View */}
       <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
+          <table className="min-w-[1400px] w-full text-sm">
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
               <tr className="text-left text-gray-700">
                 <th className="px-4 py-3 font-semibold">{sortLink('title','Project Name')}</th>
@@ -226,13 +226,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 opportunities.map((o) => (
                   <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
                     <td className="px-4 py-3 w-[260px] max-w-[260px]">
-                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 px-2.5 py-1.5">
+                      <div className="px-2.5 py-1.5">
                         <EditableCell<any>
                           id={o.id}
                           column="title"
                           value={o.title}
                           kind="text"
-                          className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
+                          className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
                         />
                       </div>
                     </td>

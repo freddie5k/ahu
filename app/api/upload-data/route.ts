@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
     })
 
     console.log('Column mapping:', columnMap)
+    console.log('First 3 data rows:', rows.slice(0, 3))
 
     let imported = 0
     let failed = 0
@@ -100,8 +101,10 @@ export async function POST(request: NextRequest) {
     }
 
     const getString = (value: any): string | null => {
-      if (value === null || value === undefined || value === '') return null
-      return String(value).trim()
+      if (value === null || value === undefined) return null
+      const str = String(value).trim()
+      if (str === '' || str === 'undefined' || str === 'null') return null
+      return str
     }
 
     const getInteger = (value: any): number | null => {
@@ -123,7 +126,10 @@ export async function POST(request: NextRequest) {
         }
 
         // Skip empty rows
-        const title = getString(row[columnMap.title])
+        const titleRaw = row[columnMap.title]
+        const title = getString(titleRaw)
+        console.log(`Row ${rowNum}: Title raw value:`, titleRaw, 'Processed:', title)
+
         if (!title) {
           console.log(`Row ${rowNum}: Skipping - no title found at column ${columnMap.title}`)
           continue
@@ -180,7 +186,9 @@ export async function POST(request: NextRequest) {
       debug: {
         totalRows: rows.length,
         columnMap,
-        headers
+        headers,
+        firstRow: rows[0],
+        secondRow: rows[1]
       }
     })
   } catch (error: any) {
