@@ -72,7 +72,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Opportunities</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">AHU Opportunity Tracker</h1>
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
         <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
@@ -90,7 +90,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
         <div className="rounded bg-red-50 text-red-700 p-3 text-sm">{error.message}</div>
       ) : null}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gradient-to-r from-gray-50 to-gray-100/50 rounded-lg px-4 py-3 border border-gray-200/60 shadow-sm">
         <div className="flex items-center gap-2 flex-wrap">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-500">
             <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -102,7 +102,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
           </svg>
           <span className="text-sm text-gray-700 font-medium">Sorted by</span>
           <span className="text-sm text-gray-900 font-semibold">{sortParam}</span>
-          <span className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-xs font-medium text-gray-700 ring-1 ring-gray-300">
+          <span className="inline-flex items-center rounded-md bg-white px-2.5 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-300/50 shadow-sm">
             {ascending ? '↑ Ascending' : '↓ Descending'}
           </span>
         </div>
@@ -117,10 +117,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
           </div>
         ) : (
           opportunities.map((o) => (
-            <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-4 space-y-3">
+            <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 p-4 space-y-3 hover:shadow-xl transition-shadow duration-200">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-[0.5px] ring-blue-300/50 px-2.5 py-1.5 shadow-sm mb-2">
+                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/30 px-2.5 py-1.5 shadow-sm mb-2">
                     <EditableCell<any>
                       id={o.id}
                       column="title"
@@ -168,7 +168,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       </div>
 
       {/* Desktop Table View */}
-      <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 overflow-hidden">
+      <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
@@ -190,9 +190,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 </tr>
               ) : (
                 opportunities.map((o) => (
-                  <tr key={o.id} className="group hover:bg-blue-50/30 transition-colors duration-150 border-b border-gray-100 last:border-b-0">
+                  <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
                     <td className="px-4 py-3 w-[260px] max-w-[260px]">
-                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-[0.5px] ring-blue-300/50 px-2.5 py-1.5 shadow-sm">
+                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/30 px-2.5 py-1.5 shadow-sm">
                         <EditableCell<any>
                           id={o.id}
                           column="title"
