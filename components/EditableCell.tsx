@@ -43,7 +43,8 @@ export default function EditableCell<T extends Record<string, any>>(props: TextP
       const { error } = await supabase.from('opportunities').update(payload).eq('id', props.id)
       if (error) throw error
       if (props.kind === 'number') {
-        setVal(v === null ? '' : formatEUR(v))
+        // Only format as currency if placeholder is "€"
+        setVal(v === null ? '' : (props.placeholder === '€' ? formatEUR(v) : v.toLocaleString()))
       }
     } catch (e: any) {
       setError(e?.message ?? 'Save failed')
@@ -86,7 +87,8 @@ function initialValue<T extends Record<string, any>>(props: TextProps<T> | Selec
   if (props.kind === 'number') {
     if (props.value === null || props.value === undefined || props.value === '') return ''
     const n = Number(props.value)
-    return Number.isNaN(n) ? '' : formatEUR(n)
+    // Only format as currency if placeholder is "€"
+    return Number.isNaN(n) ? '' : (props.placeholder === '€' ? formatEUR(n) : n.toLocaleString())
   }
   return props.value ?? ''
 }
