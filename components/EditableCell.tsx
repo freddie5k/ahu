@@ -93,8 +93,8 @@ function initialValue<T extends Record<string, any>>(props: TextProps<T> | Selec
 
 function formatEUR(n: number) {
   try {
-    return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n)
   } catch {
-    return `$${n.toLocaleString()}`
+    return `€${n.toLocaleString()}`
   }
 }

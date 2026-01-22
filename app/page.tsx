@@ -26,8 +26,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
     priority: 'priority',
     target_close_date: 'target_close_date',
     owner_name: 'owner_name',
-    estimated_savings_usd: 'estimated_savings_usd',
-    estimated_cost_usd: 'estimated_cost_usd',
+    price_eur: 'price_eur',
     updated_at: 'updated_at',
   }
 
@@ -121,7 +120,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-4 space-y-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-1 ring-blue-300/50 px-2.5 py-1.5 shadow-sm mb-2">
+                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-[0.5px] ring-blue-300/50 px-2.5 py-1.5 shadow-sm mb-2">
                     <EditableCell<any>
                       id={o.id}
                       column="title"
@@ -159,15 +158,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div>
-                  <div className="text-xs text-gray-500 mb-1">Savings</div>
-                  <EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="$" />
-                </div>
-                <div>
-                  <div className="text-xs text-gray-500 mb-1">Cost</div>
-                  <EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="$" />
-                </div>
+              <div className="text-sm">
+                <div className="text-xs text-gray-500 mb-1">Price</div>
+                <EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric" placeholder="€" />
               </div>
             </div>
           ))
@@ -186,21 +179,20 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('estimated_savings_usd','Savings ($)')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('estimated_cost_usd','Cost ($)')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('price_eur','Price (€)')}</th>
                 <th className="px-4 py-3 font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-4 py-6 text-center text-gray-500">No opportunities yet. Create one to get started.</td>
+                  <td colSpan={8} className="px-4 py-6 text-center text-gray-500">No opportunities yet. Create one to get started.</td>
                 </tr>
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="group hover:bg-blue-50/30 transition-colors duration-150 border-b border-gray-100 last:border-b-0">
                     <td className="px-4 py-3 w-[260px] max-w-[260px]">
-                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-1 ring-blue-300/50 px-2.5 py-1.5 shadow-sm">
+                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 ring-[0.5px] ring-blue-300/50 px-2.5 py-1.5 shadow-sm">
                         <EditableCell<any>
                           id={o.id}
                           column="title"
@@ -215,8 +207,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
                     <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="estimated_savings_usd" value={o.estimated_savings_usd} kind="number" className="numeric" placeholder="$" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="estimated_cost_usd" value={o.estimated_cost_usd} kind="number" className="numeric" placeholder="$" /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric" placeholder="€" /></td>
                     <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))

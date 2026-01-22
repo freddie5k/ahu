@@ -19,8 +19,7 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
     priority: opp.priority as OpportunityPriority,
     target_close_date: opp.target_close_date ?? '',
     owner_name: opp.owner_name ?? '',
-    estimated_savings_usd: opp.estimated_savings_usd === null ? '' : String(opp.estimated_savings_usd),
-    estimated_cost_usd: opp.estimated_cost_usd === null ? '' : String(opp.estimated_cost_usd),
+    price_eur: opp.price_eur === null ? '' : String(opp.price_eur),
   })
 
   async function persist(patch: Partial<typeof state>) {
@@ -36,8 +35,7 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
         priority: (patch.priority ?? state.priority),
         target_close_date: (patch.target_close_date ?? state.target_close_date) || null,
         owner_name: (patch.owner_name ?? state.owner_name) || null,
-        estimated_savings_usd: normalizeNumber(patch.estimated_savings_usd ?? state.estimated_savings_usd),
-        estimated_cost_usd: normalizeNumber(patch.estimated_cost_usd ?? state.estimated_cost_usd),
+        price_eur: normalizeNumber(patch.price_eur ?? state.price_eur),
       }
       const { error } = await supabase.from('opportunities').update(payload).eq('id', opp.id)
       if (error) throw error
@@ -55,7 +53,7 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
     return num
   }
 
-  const gridClass = "grid items-center gap-3 [grid-template-columns:2fr_1.2fr_1fr_1fr_1fr_1.2fr_1fr_1fr_auto]"
+  const gridClass = "grid items-center gap-3 [grid-template-columns:2fr_1.2fr_1fr_1fr_1fr_1.2fr_1fr_auto]"
 
   return (
     <div className="card p-3">
@@ -82,9 +80,7 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
 
         <input className="input-condensed truncate" placeholder="Owner" value={state.owner_name} onChange={(e)=>setState(s=>({...s, owner_name: e.target.value}))} onBlur={()=>persist({owner_name: state.owner_name})} />
 
-        <input inputMode="decimal" className="input-condensed" placeholder="Savings" value={state.estimated_savings_usd} onChange={(e)=>setState(s=>({...s, estimated_savings_usd: e.target.value}))} onBlur={()=>persist({estimated_savings_usd: state.estimated_savings_usd})} />
-
-        <input inputMode="decimal" className="input-condensed" placeholder="Cost" value={state.estimated_cost_usd} onChange={(e)=>setState(s=>({...s, estimated_cost_usd: e.target.value}))} onBlur={()=>persist({estimated_cost_usd: state.estimated_cost_usd})} />
+        <input inputMode="decimal" className="input-condensed" placeholder="Price €" value={state.price_eur} onChange={(e)=>setState(s=>({...s, price_eur: e.target.value}))} onBlur={()=>persist({price_eur: state.price_eur})} />
 
         <div className="justify-self-end"><OpportunityActions id={opp.id} /></div>
       </div>

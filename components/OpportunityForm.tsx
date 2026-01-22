@@ -24,13 +24,10 @@ export default function OpportunityForm({ initial, mode }: Props) {
   const [priority, setPriority] = useState<OpportunityPriority>((initial?.priority as OpportunityPriority) ?? 'Medium')
   const [targetCloseDate, setTargetCloseDate] = useState(initial?.target_close_date ?? '')
   const [ownerName, setOwnerName] = useState(initial?.owner_name ?? '')
-  const [estimatedSavings, setEstimatedSavings] = useState<string>(
-    initial?.estimated_savings_usd !== undefined && initial?.estimated_savings_usd !== null
-      ? String(initial.estimated_savings_usd)
+  const [priceEur, setPriceEur] = useState<string>(
+    initial?.price_eur !== undefined && initial?.price_eur !== null
+      ? String(initial.price_eur)
       : ''
-  )
-  const [estimatedCost, setEstimatedCost] = useState<string>(
-    initial?.estimated_cost_usd !== undefined && initial?.estimated_cost_usd !== null ? String(initial.estimated_cost_usd) : ''
   )
 
   async function handleSubmit(e: React.FormEvent) {
@@ -46,8 +43,7 @@ export default function OpportunityForm({ initial, mode }: Props) {
         priority,
         target_close_date: targetCloseDate || null,
         owner_name: ownerName || null,
-        estimated_savings_usd: estimatedSavings === '' ? null : Number(estimatedSavings),
-        estimated_cost_usd: estimatedCost === '' ? null : Number(estimatedCost),
+        price_eur: priceEur === '' ? null : Number(priceEur),
       }
 
       if (mode === 'create') {
@@ -115,13 +111,8 @@ export default function OpportunityForm({ initial, mode }: Props) {
         </label>
 
         <label className="flex flex-col gap-1">
-          <span className="text-sm text-gray-700">Estimated Savings (EUR)</span>
-          <input inputMode="decimal" placeholder="€" value={estimatedSavings} onChange={(e) => setEstimatedSavings(e.target.value)} className="input" />
-        </label>
-
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-gray-700">Estimated Cost (EUR)</span>
-          <input inputMode="decimal" placeholder="€" value={estimatedCost} onChange={(e) => setEstimatedCost(e.target.value)} className="input" />
+          <span className="text-sm text-gray-700">Price (EUR)</span>
+          <input inputMode="decimal" placeholder="€" value={priceEur} onChange={(e) => setPriceEur(e.target.value)} className="input" />
         </label>
       </div>
 
