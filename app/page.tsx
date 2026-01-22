@@ -232,7 +232,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
-                    <td className="px-3 py-2 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                    <td className="px-3 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                       <EditableCell<any>
                         id={o.id}
                         column="title"
@@ -241,22 +241,22 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
                       />
                     </td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableStatusCell id={o.id} value={o.status} /></td>
-                    <td className="px-3 py-2"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
-                    <td className="px-3 py-2"><OpportunityActions id={o.id} /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
+                    <td className="px-3 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-[10px]" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-1.5"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))
               )}
