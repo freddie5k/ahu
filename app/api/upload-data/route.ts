@@ -135,19 +135,13 @@ export async function POST(request: NextRequest) {
           continue
         }
 
-        // Get title - try Project Name first, fallback to Description
-        const titleFromProjectName = getString(row[columnMap.title])
-        const titleFromDescription = getString(row[columnMap.description])
+        // Get title from Project Name column
+        const title = getString(row[columnMap.title])
 
-        // Use Project Name if available, otherwise use Description
-        const title = titleFromProjectName || titleFromDescription
-
-        console.log(`Row ${rowNum}: Project Name col value:`, row[columnMap.title])
-        console.log(`Row ${rowNum}: Description col value:`, row[columnMap.description])
-        console.log(`Row ${rowNum}: Final title chosen:`, title)
+        console.log(`Row ${rowNum}: Project Name value:`, row[columnMap.title], '→ Processed:', title)
 
         if (!title) {
-          console.log(`Row ${rowNum}: Skipping - no title in either Project Name or Description`)
+          console.log(`Row ${rowNum}: Skipping - no title in Project Name column`)
           continue
         }
 
@@ -162,7 +156,7 @@ export async function POST(request: NextRequest) {
           status: getString(row[columnMap.status]) || 'New',
           priority: getString(row[columnMap.priority]) || 'Medium',
           target_close_date: parseDate(row[columnMap.target_close_date]),
-          description: titleFromProjectName ? getString(row[columnMap.description]) : null, // Only use description if we got title from Project Name
+          description: getString(row[columnMap.description]),
           air_flow_m3h: parseCurrency(row[columnMap.air_flow_m3h]),
           number_of_units: getInteger(row[columnMap.number_of_units]),
           dss_dsp_design: getString(row[columnMap.dss_dsp_design]),

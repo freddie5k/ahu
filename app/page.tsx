@@ -200,12 +200,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 <th className="px-4 py-3 font-semibold sticky left-0 bg-gray-50 z-10">{sortLink('title','Project Name')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('bu','BU')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('number_of_units','Units')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('air_flow_m3h','Air Flow')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('number_of_units','Units')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('price_eur','Price (€)')}</th>
                 <th className="px-4 py-3 font-semibold">Actions</th>
               </tr>
@@ -238,12 +238,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     </td>
                     <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" /></td>
                     <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
+                    <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableStatusCell id={o.id} value={o.status} /></td>
                     <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
-                    <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric" /></td>
                     <td className="px-4 py-3 w-[120px]"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric" /></td>
+                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric" /></td>
                     <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" /></td>
                     <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
                   </tr>
