@@ -196,7 +196,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
           <ResizableTable>
-            <table className="w-full text-xs">
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
               <tr className="text-left text-gray-700 text-xs">
                 <th className="px-3 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '200px'}}>{sortLink('title','Project Name')}</th>
@@ -262,7 +261,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 ))
               )}
             </tbody>
-          </table>
           </ResizableTable>
         </div>
       </div>

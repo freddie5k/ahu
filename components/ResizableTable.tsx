@@ -64,78 +64,33 @@ export default function ResizableTable({ children }: ResizableTableProps) {
     }
   }
 
-  const enhanceTable = (table: React.ReactElement) => {
-    if (!table || table.type !== 'table') return table
+  useEffect(() => {
+    if (!tableRef.current) return
 
-    const thead = table.props.children.find((child: any) => child?.type === 'thead')
-    if (!thead) return table
+    const headers = tableRef.current.querySelectorAll('th')
+    headers.forEach((th, index) => {
+      // Remove any existing resize handle
+      const existingHandle = th.querySelector('.resize-handle')
+      if (existingHandle) existingHandle.remove()
 
-    const tr = thead.props.children
-    if (!tr || !tr.props || !tr.props.children) return table
+      // Add resize handle
+      const handle = document.createElement('div')
+      handle.className = 'resize-handle absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-blue-400 hover:w-1.5 transition-all'
+      handle.onmousedown = (e) => handleResizeStart(e as any, index)
+      handle.onclick = (e) => e.stopPropagation()
 
-    const enhancedTh = tr.props.children.map((th: any, index: number) => {
-      if (!th || th.type !== 'th') return th
-
-      return {
-        ...th,
-        props: {
-          ...th.props,
-          className: `${th.props.className || ''} relative`,
-          children: (
-            <>
-              {th.props.children}
-              <div
-                className="absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-blue-400 hover:w-1.5 transition-all"
-                onMouseDown={(e) => handleResizeStart(e, index)}
-                onClick={(e) => e.stopPropagation()}
-              />
-            </>
-          ),
-        },
+      // Make th position relative if not already
+      if (window.getComputedStyle(th).position === 'static') {
+        th.style.position = 'relative'
       }
+
+      th.appendChild(handle)
     })
+  }, [])
 
-    const enhancedTr = {
-      ...tr,
-      props: {
-        ...tr.props,
-        children: enhancedTh,
-      },
-    }
-
-    const enhancedThead = {
-      ...thead,
-      props: {
-        ...thead.props,
-        children: enhancedTr,
-      },
-    }
-
-    const enhancedChildren = table.props.children.map((child: any) => {
-      if (child?.type === 'thead') return enhancedThead
-      return child
-    })
-
-    return {
-      ...table,
-      ref: tableRef,
-      props: {
-        ...table.props,
-        children: enhancedChildren,
-      },
-    }
-  }
-
-  const enhancedChildren = Array.isArray(children)
-    ? children.map((child) => {
-        if (child && typeof child === 'object' && 'type' in child && child.type === 'table') {
-          return enhanceTable(child as React.ReactElement)
-        }
-        return child
-      })
-    : typeof children === 'object' && children && 'type' in children && (children as any).type === 'table'
-    ? enhanceTable(children as React.ReactElement)
-    : children
-
-  return <>{enhancedChildren}</>
+  return (
+    <table ref={tableRef} className="w-full text-xs">
+      {children}
+    </table>
+  )
 }
