@@ -10,8 +10,7 @@ export type Opportunity = {
   priority: OpportunityPriority
   target_close_date: string | null
   owner_name: string | null
-  estimated_savings_usd: number | null
-  estimated_cost_usd: number | null
+  price_eur: number | null
   created_at: string
   updated_at: string
 }

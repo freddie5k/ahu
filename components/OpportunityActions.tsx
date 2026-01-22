@@ -24,7 +24,7 @@ export default function OpportunityActions({ id }: { id: string }) {
         href={`/opportunity/${id}`}
         title="Edit"
         aria-label="Edit"
-        className="inline-flex items-center justify-center rounded-md p-1.5 text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+        className="inline-flex items-center justify-center rounded-md p-1.5 text-blue-600 hover:bg-blue-100 hover:text-blue-700 hover:shadow-sm transition-all duration-150 hover:scale-105"
       >
         <PencilIcon width={18} height={18} />
       </Link>
@@ -32,7 +32,7 @@ export default function OpportunityActions({ id }: { id: string }) {
         onClick={handleDelete}
         title="Delete"
         aria-label="Delete"
-        className="inline-flex items-center justify-center rounded-md p-1.5 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
+        className="inline-flex items-center justify-center rounded-md p-1.5 text-red-600 hover:bg-red-100 hover:text-red-700 hover:shadow-sm transition-all duration-150 hover:scale-105"
       >
         <TrashIcon width={18} height={18} />
       </button>
