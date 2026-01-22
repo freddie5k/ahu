@@ -6,11 +6,14 @@ import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons'
 const options = [
   { key: 'updated_at', label: 'Last Updated' },
   { key: 'title', label: 'Project Name' },
+  { key: 'bu', label: 'BU' },
   { key: 'site', label: 'Site' },
   { key: 'status', label: 'Status' },
   { key: 'priority', label: 'Priority' },
   { key: 'target_close_date', label: 'Closing Date' },
   { key: 'owner_name', label: 'Owner' },
+  { key: 'number_of_units', label: 'Units' },
+  { key: 'air_flow_m3h', label: 'Air Flow' },
   { key: 'price_eur', label: 'Price (€)' },
 ]
 

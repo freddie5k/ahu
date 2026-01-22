@@ -8,6 +8,7 @@ import EditableStatusCell from '@/components/EditableStatusCell'
 import EditablePriorityCell from '@/components/EditablePriorityCell'
 import { ArrowDownIcon, ArrowUpIcon } from '@/components/icons'
 import SortControls from '@/components/SortControls'
+import ResizableTable from '@/components/ResizableTable'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -21,11 +22,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
 
   const sortable: Record<string, string> = {
     title: 'title',
+    bu: 'bu',
     site: 'site',
     status: 'status',
     priority: 'priority',
     target_close_date: 'target_close_date',
     owner_name: 'owner_name',
+    number_of_units: 'number_of_units',
+    air_flow_m3h: 'air_flow_m3h',
     price_eur: 'price_eur',
     updated_at: 'updated_at',
   }
@@ -69,7 +73,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+    <div className="mx-auto max-w-[98%] px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
@@ -81,13 +85,23 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
           </h1>
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
-        <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          New Opportunity
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/upload-data" className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-green-700 shadow-sm hover:shadow-md transition-all duration-150">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Excel
+          </Link>
+          <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Opportunity
+          </Link>
+        </div>
       </div>
 
       {missingTable ? (
@@ -131,13 +145,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 p-4 space-y-3 hover:shadow-xl transition-shadow duration-200">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 px-2.5 py-1.5 mb-2">
+                  <div className="px-2.5 py-1.5 mb-2">
                     <EditableCell<any>
                       id={o.id}
                       column="title"
                       value={o.title}
                       kind="text"
-                      className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-base"
+                      className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-base"
                     />
                   </div>
                   <div className="text-sm text-gray-600">
@@ -181,23 +195,32 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       {/* Desktop Table View */}
       <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
-              <tr className="text-left text-gray-700">
-                <th className="px-4 py-3 font-semibold">{sortLink('title','Project Name')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('price_eur','Price (€)')}</th>
-                <th className="px-4 py-3 font-semibold">Actions</th>
+          <ResizableTable>
+            <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
+              <tr className="text-left text-gray-700 text-xs">
+                <th className="px-3 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '200px'}}>{sortLink('title','Project Name')}</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>BU</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Site</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Owner</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Status</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Priority</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Closing Date</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '200px'}}>Description</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Units</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '90px'}}>DSS/DSP</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '130px'}}>Transfer Cost (OH)</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Transfer Cost Complete</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Vortice Price</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Comments</th>
+                <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center">
+                  <td colSpan={17} className="px-4 py-8 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-300 mb-3">
                       <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
@@ -208,30 +231,37 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 </tr>
               ) : (
                 opportunities.map((o) => (
-                  <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
-                    <td className="px-4 py-3 w-[260px] max-w-[260px]">
-                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 px-2.5 py-1.5">
-                        <EditableCell<any>
-                          id={o.id}
-                          column="title"
-                          value={o.title}
-                          kind="text"
-                          className="font-semibold text-blue-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
-                        />
-                      </div>
+                  <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
+                    <td className="px-3 py-2 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                      <EditableCell<any>
+                        id={o.id}
+                        column="title"
+                        value={o.title}
+                        kind="text"
+                        className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
+                      />
                     </td>
-                    <td className="px-4 py-3 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
-                    <td className="px-4 py-3 w-[150px]"><EditableStatusCell id={o.id} value={o.status} /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                    <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
-                    <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" /></td>
-                    <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableStatusCell id={o.id} value={o.status} /></td>
+                    <td className="px-3 py-2"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))
               )}
             </tbody>
-          </table>
+          </ResizableTable>
         </div>
       </div>
     </div>
