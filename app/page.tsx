@@ -72,7 +72,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+    <div className="mx-auto max-w-[98%] px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
@@ -194,26 +194,32 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       {/* Desktop Table View */}
       <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-[1400px] w-full text-sm">
+          <table className="min-w-[2400px] w-full text-xs">
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
-              <tr className="text-left text-gray-700">
-                <th className="px-4 py-3 font-semibold sticky left-0 bg-gray-50 z-10">{sortLink('title','Project Name')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('bu','BU')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('air_flow_m3h','Air Flow')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('number_of_units','Units')}</th>
-                <th className="px-4 py-3 font-semibold">{sortLink('price_eur','Price (€)')}</th>
-                <th className="px-4 py-3 font-semibold">Actions</th>
+              <tr className="text-left text-gray-700 text-xs">
+                <th className="px-3 py-2 font-semibold sticky left-0 bg-gray-50 z-10">{sortLink('title','Project Name')}</th>
+                <th className="px-3 py-2 font-semibold">BU</th>
+                <th className="px-3 py-2 font-semibold">Site</th>
+                <th className="px-3 py-2 font-semibold">Owner</th>
+                <th className="px-3 py-2 font-semibold">Status</th>
+                <th className="px-3 py-2 font-semibold">Priority</th>
+                <th className="px-3 py-2 font-semibold">Closing Date</th>
+                <th className="px-3 py-2 font-semibold">Description</th>
+                <th className="px-3 py-2 font-semibold">Air Flow (m³/h)</th>
+                <th className="px-3 py-2 font-semibold">Units</th>
+                <th className="px-3 py-2 font-semibold">DSS/DSP</th>
+                <th className="px-3 py-2 font-semibold">Transfer Cost (OH)</th>
+                <th className="px-3 py-2 font-semibold">Transfer Cost Complete</th>
+                <th className="px-3 py-2 font-semibold">Vortice Price</th>
+                <th className="px-3 py-2 font-semibold">Selling Price</th>
+                <th className="px-3 py-2 font-semibold">Comments</th>
+                <th className="px-3 py-2 font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="px-4 py-8 text-center">
+                  <td colSpan={17} className="px-4 py-8 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-300 mb-3">
                       <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
@@ -224,28 +230,32 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                 </tr>
               ) : (
                 opportunities.map((o) => (
-                  <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
-                    <td className="px-4 py-3 w-[260px] max-w-[260px] sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
-                      <div className="px-2.5 py-1.5">
-                        <EditableCell<any>
-                          id={o.id}
-                          column="title"
-                          value={o.title}
-                          kind="text"
-                          className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500"
-                        />
-                      </div>
+                  <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
+                    <td className="px-3 py-2 w-[200px] max-w-[200px] sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                      <EditableCell<any>
+                        id={o.id}
+                        column="title"
+                        value={o.title}
+                        kind="text"
+                        className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
+                      />
                     </td>
-                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
-                    <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-4 py-3 w-[150px]"><EditableStatusCell id={o.id} value={o.status} /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                    <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
-                    <td className="px-4 py-3 w-[120px]"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric" /></td>
-                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" /></td>
-                    <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
+                    <td className="px-3 py-2 w-[80px]"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[100px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[120px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[120px]"><EditableStatusCell id={o.id} value={o.status} /></td>
+                    <td className="px-3 py-2 w-[110px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                    <td className="px-3 py-2 w-[120px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[200px]"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[100px]"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-2 w-[80px]"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                    <td className="px-3 py-2 w-[90px]"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[110px]"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2 w-[110px]"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2 w-[100px]"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2 w-[110px]"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                    <td className="px-3 py-2 w-[150px]"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
+                    <td className="px-3 py-2 w-[80px]"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))
               )}
