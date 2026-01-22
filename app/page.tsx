@@ -72,7 +72,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">AHU Opportunity Tracker</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            AHU Opportunity Tracker
+          </h1>
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
         <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
@@ -112,15 +118,20 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       {/* Mobile Card View */}
       <div className="md:hidden space-y-3">
         {opportunities.length === 0 ? (
-          <div className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-6 text-center text-gray-500">
-            No opportunities yet. Create one to get started.
+          <div className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/50 p-8 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-300 mb-3">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <p className="text-gray-500 font-medium">No opportunities yet</p>
+            <p className="text-sm text-gray-400 mt-1">Create one to get started</p>
           </div>
         ) : (
           opportunities.map((o) => (
             <div key={o.id} className="rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 p-4 space-y-3 hover:shadow-xl transition-shadow duration-200">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/30 px-2.5 py-1.5 shadow-sm mb-2">
+                  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/10 px-2.5 py-1.5 mb-2">
                     <EditableCell<any>
                       id={o.id}
                       column="title"
@@ -160,7 +171,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
 
               <div className="text-sm">
                 <div className="text-xs text-gray-500 mb-1">Price</div>
-                <EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric" placeholder="€" />
+                <EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" />
               </div>
             </div>
           ))
@@ -186,13 +197,20 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-6 text-center text-gray-500">No opportunities yet. Create one to get started.</td>
+                  <td colSpan={8} className="px-4 py-8 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-300 mb-3">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <p className="text-gray-500 font-medium">No opportunities yet</p>
+                    <p className="text-sm text-gray-400 mt-1">Create one to get started</p>
+                  </td>
                 </tr>
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
                     <td className="px-4 py-3 w-[260px] max-w-[260px]">
-                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/30 px-2.5 py-1.5 shadow-sm">
+                      <div className="rounded-lg bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/10 px-2.5 py-1.5">
                         <EditableCell<any>
                           id={o.id}
                           column="title"
@@ -207,7 +225,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
                     <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
-                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric" placeholder="€" /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" /></td>
                     <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
                   </tr>
                 ))
