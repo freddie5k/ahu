@@ -11,8 +11,7 @@ const options = [
   { key: 'priority', label: 'Priority' },
   { key: 'target_close_date', label: 'Closing Date' },
   { key: 'owner_name', label: 'Owner' },
-  { key: 'estimated_savings_usd', label: 'Savings' },
-  { key: 'estimated_cost_usd', label: 'Cost' },
+  { key: 'price_eur', label: 'Price (€)' },
 ]
 
 export default function SortControls() {
