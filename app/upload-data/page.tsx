@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function UploadDataPage() {
   const [file, setFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState(false)
-  const [result, setResult] = useState<{ success: number; failed: number; errors: string[] } | null>(null)
+  const [result, setResult] = useState<{ success: number; failed: number; errors: string[]; debug?: any } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   async function handleUpload(e: React.FormEvent) {
@@ -134,6 +134,18 @@ export default function UploadDataPage() {
                 <div className="text-sm text-green-800 space-y-1">
                   <p>✅ Successfully imported: {result.success} rows</p>
                   {result.failed > 0 && <p>❌ Failed: {result.failed} rows</p>}
+                  {result.debug && (
+                    <details className="mt-2">
+                      <summary className="cursor-pointer font-medium">Debug Info</summary>
+                      <div className="mt-2 text-xs bg-white p-2 rounded border border-green-200">
+                        <p><strong>Total rows in Excel:</strong> {result.debug.totalRows}</p>
+                        <p><strong>Headers found:</strong></p>
+                        <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.headers, null, 2)}</pre>
+                        <p className="mt-2"><strong>Column mapping:</strong></p>
+                        <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.columnMap, null, 2)}</pre>
+                      </div>
+                    </details>
+                  )}
                   {result.errors.length > 0 && (
                     <details className="mt-2">
                       <summary className="cursor-pointer font-medium">View errors</summary>

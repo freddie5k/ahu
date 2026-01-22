@@ -31,27 +31,37 @@ export async function POST(request: NextRequest) {
     const headers = data[0]
     const rows = data.slice(1) // Skip header row
 
-    // Column mapping
+    console.log('Excel headers found:', headers)
+
+    // Helper to normalize header names for matching
+    const normalizeHeader = (h: any): string => {
+      return h?.toString().trim().toLowerCase().replace(/\s+/g, ' ') || ''
+    }
+
+    // Column mapping - more flexible matching
     const columnMap: Record<string, number> = {}
-    headers.forEach((header: string, index: number) => {
-      const h = header?.toString().trim() || ''
-      if (h === 'Project Name') columnMap.title = index
-      if (h === 'BU') columnMap.bu = index
-      if (h === 'Site') columnMap.site = index
-      if (h === 'Owner') columnMap.owner_name = index
-      if (h === 'Status') columnMap.status = index
-      if (h === 'Priority') columnMap.priority = index
-      if (h === 'Closing date') columnMap.target_close_date = index
-      if (h === 'Description') columnMap.description = index
-      if (h === 'Air flow (m3/h)') columnMap.air_flow_m3h = index
-      if (h === 'Number of Units') columnMap.number_of_units = index
-      if (h === 'DSS / DSP desing') columnMap.dss_dsp_design = index
-      if (h.includes('Transfer cost without')) columnMap.transfer_cost_without_oh_profit_8_per_u = index
-      if (h.includes('Transfer cost complete')) columnMap.transfer_cost_complete_per_u = index
-      if (h.includes('Vortice price')) columnMap.vortice_price = index
-      if (h.includes('Selling Price')) columnMap.selling_price = index
-      if (h === 'Comments') columnMap.comments = index
+    headers.forEach((header: any, index: number) => {
+      const h = normalizeHeader(header)
+
+      if (h.includes('project') && h.includes('name')) columnMap.title = index
+      if (h === 'bu') columnMap.bu = index
+      if (h === 'site') columnMap.site = index
+      if (h === 'owner') columnMap.owner_name = index
+      if (h === 'status') columnMap.status = index
+      if (h === 'priority') columnMap.priority = index
+      if (h.includes('closing') && h.includes('date')) columnMap.target_close_date = index
+      if (h === 'description') columnMap.description = index
+      if (h.includes('air') && h.includes('flow')) columnMap.air_flow_m3h = index
+      if (h.includes('number') && h.includes('unit')) columnMap.number_of_units = index
+      if (h.includes('dss') || h.includes('dsp')) columnMap.dss_dsp_design = index
+      if (h.includes('transfer') && h.includes('without')) columnMap.transfer_cost_without_oh_profit_8_per_u = index
+      if (h.includes('transfer') && h.includes('complete')) columnMap.transfer_cost_complete_per_u = index
+      if (h.includes('vortice')) columnMap.vortice_price = index
+      if (h.includes('selling')) columnMap.selling_price = index
+      if (h === 'comments') columnMap.comments = index
     })
+
+    console.log('Column mapping:', columnMap)
 
     let imported = 0
     let failed = 0
@@ -106,11 +116,20 @@ export async function POST(request: NextRequest) {
       const rowNum = i + 2 // +2 because Excel is 1-indexed and we skipped header
 
       try {
+        // Skip completely empty rows
+        if (!row || row.every((cell: any) => !cell)) {
+          console.log(`Row ${rowNum}: Skipping - completely empty`)
+          continue
+        }
+
         // Skip empty rows
         const title = getString(row[columnMap.title])
         if (!title) {
+          console.log(`Row ${rowNum}: Skipping - no title found at column ${columnMap.title}`)
           continue
         }
+
+        console.log(`Row ${rowNum}: Processing "${title}"`)
 
         // Build opportunity object
         const opportunity: any = {
@@ -143,16 +162,26 @@ export async function POST(request: NextRequest) {
         if (error) throw error
 
         imported++
+        console.log(`Row ${rowNum}: ✅ Imported successfully`)
       } catch (err: any) {
         failed++
-        errors.push(`Row ${rowNum}: ${err.message}`)
+        const errorMsg = `Row ${rowNum}: ${err.message}`
+        errors.push(errorMsg)
+        console.error(errorMsg)
       }
     }
+
+    console.log(`Import complete: ${imported} success, ${failed} failed`)
 
     return NextResponse.json({
       success: imported,
       failed,
       errors,
+      debug: {
+        totalRows: rows.length,
+        columnMap,
+        headers
+      }
     })
   } catch (error: any) {
     console.error('Upload error:', error)
