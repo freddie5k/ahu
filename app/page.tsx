@@ -21,11 +21,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
 
   const sortable: Record<string, string> = {
     title: 'title',
+    bu: 'bu',
     site: 'site',
     status: 'status',
     priority: 'priority',
     target_close_date: 'target_close_date',
     owner_name: 'owner_name',
+    number_of_units: 'number_of_units',
+    air_flow_m3h: 'air_flow_m3h',
     price_eur: 'price_eur',
     updated_at: 'updated_at',
   }
@@ -81,13 +84,23 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
           </h1>
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
-        <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          New Opportunity
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/upload-data" className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-green-700 shadow-sm hover:shadow-md transition-all duration-150">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Excel
+          </Link>
+          <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Opportunity
+          </Link>
+        </div>
       </div>
 
       {missingTable ? (
@@ -185,11 +198,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
               <tr className="text-left text-gray-700">
                 <th className="px-4 py-3 font-semibold">{sortLink('title','Project Name')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('bu','BU')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('priority','Priority')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('target_close_date','Closing Date')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('owner_name','Owner')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('number_of_units','Units')}</th>
+                <th className="px-4 py-3 font-semibold">{sortLink('air_flow_m3h','Air Flow')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('price_eur','Price (€)')}</th>
                 <th className="px-4 py-3 font-semibold">Actions</th>
               </tr>
@@ -197,7 +213,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
             <tbody>
               {opportunities.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center">
+                  <td colSpan={11} className="px-4 py-8 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-300 mb-3">
                       <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
@@ -220,11 +236,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         />
                       </div>
                     </td>
-                    <td className="px-4 py-3 w-[160px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
+                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" /></td>
+                    <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableStatusCell id={o.id} value={o.status} /></td>
                     <td className="px-4 py-3 w-[140px]"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                     <td className="px-4 py-3 w-[150px]"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" /></td>
                     <td className="px-4 py-3 w-[180px]"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" /></td>
+                    <td className="px-4 py-3 w-[100px]"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric" /></td>
+                    <td className="px-4 py-3 w-[120px]"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric" /></td>
                     <td className="px-4 py-3 w-[140px]"><EditableCell<any> id={o.id} column="price_eur" value={o.price_eur} kind="number" className="numeric price-cell" placeholder="€" /></td>
                     <td className="px-4 py-3"><OpportunityActions id={o.id} /></td>
                   </tr>
