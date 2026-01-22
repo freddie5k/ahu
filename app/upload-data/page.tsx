@@ -143,6 +143,14 @@ export default function UploadDataPage() {
                         <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.headers, null, 2)}</pre>
                         <p className="mt-2"><strong>Column mapping:</strong></p>
                         <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.columnMap, null, 2)}</pre>
+                        <p className="mt-2"><strong>First data row:</strong></p>
+                        <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.firstRow, null, 2)}</pre>
+                        {result.debug.secondRow && (
+                          <>
+                            <p className="mt-2"><strong>Second data row:</strong></p>
+                            <pre className="text-[10px] overflow-auto">{JSON.stringify(result.debug.secondRow, null, 2)}</pre>
+                          </>
+                        )}
                       </div>
                     </details>
                   )}

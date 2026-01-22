@@ -120,22 +120,35 @@ export async function POST(request: NextRequest) {
 
       try {
         // Skip completely empty rows
-        if (!row || row.every((cell: any) => !cell)) {
+        if (!row || !Array.isArray(row) || row.length === 0) {
+          console.log(`Row ${rowNum}: Skipping - row is null/undefined/empty array`)
+          continue
+        }
+
+        // Check if row has any non-empty values
+        const hasAnyValue = row.some((cell: any) => {
+          return cell !== null && cell !== undefined && cell !== ''
+        })
+
+        if (!hasAnyValue) {
           console.log(`Row ${rowNum}: Skipping - completely empty`)
           continue
         }
 
-        // Skip empty rows
+        // Get title
         const titleRaw = row[columnMap.title]
+        console.log(`Row ${rowNum}: Raw row data:`, row)
+        console.log(`Row ${rowNum}: Title column index: ${columnMap.title}, Raw value:`, titleRaw, 'Type:', typeof titleRaw)
+
         const title = getString(titleRaw)
-        console.log(`Row ${rowNum}: Title raw value:`, titleRaw, 'Processed:', title)
+        console.log(`Row ${rowNum}: Processed title:`, title)
 
         if (!title) {
-          console.log(`Row ${rowNum}: Skipping - no title found at column ${columnMap.title}`)
+          console.log(`Row ${rowNum}: Skipping - no title after processing`)
           continue
         }
 
-        console.log(`Row ${rowNum}: Processing "${title}"`)
+        console.log(`Row ${rowNum}: ✓ Valid title found: "${title}"`)
 
         // Build opportunity object
         const opportunity: any = {

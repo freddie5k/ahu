@@ -195,9 +195,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
       <div className="hidden md:block rounded-xl bg-white shadow-lg ring-1 ring-gray-200/60 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-[1400px] w-full text-sm">
-            <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 sticky top-0 z-10 border-b border-gray-200">
+            <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
               <tr className="text-left text-gray-700">
-                <th className="px-4 py-3 font-semibold">{sortLink('title','Project Name')}</th>
+                <th className="px-4 py-3 font-semibold sticky left-0 bg-gray-50 z-10">{sortLink('title','Project Name')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('bu','BU')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('site','Site')}</th>
                 <th className="px-4 py-3 font-semibold">{sortLink('status','Status')}</th>
@@ -225,7 +225,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
               ) : (
                 opportunities.map((o) => (
                   <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0">
-                    <td className="px-4 py-3 w-[260px] max-w-[260px]">
+                    <td className="px-4 py-3 w-[260px] max-w-[260px] sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                       <div className="px-2.5 py-1.5">
                         <EditableCell<any>
                           id={o.id}
