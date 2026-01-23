@@ -14,7 +14,6 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
   const [state, setState] = useState({
     title: opp.title,
     site: opp.site,
-    description: opp.description ?? '',
     status: opp.status as OpportunityStatus,
     priority: opp.priority as OpportunityPriority,
     target_close_date: opp.target_close_date ?? '',
@@ -30,7 +29,6 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
       const payload = {
         title: patch.title ?? state.title,
         site: patch.site ?? state.site,
-        description: (patch.description ?? state.description) || null,
         status: (patch.status ?? state.status),
         priority: (patch.priority ?? state.priority),
         target_close_date: (patch.target_close_date ?? state.target_close_date) || null,
@@ -83,10 +81,6 @@ export default function OpportunityCard({ opp }: { opp: Opportunity }) {
         <input inputMode="decimal" className="input-condensed" placeholder="Price €" value={state.price_eur} onChange={(e)=>setState(s=>({...s, price_eur: e.target.value}))} onBlur={()=>persist({price_eur: state.price_eur})} />
 
         <div className="justify-self-end"><OpportunityActions id={opp.id} /></div>
-      </div>
-
-      <div className="mt-1">
-        <textarea className="input-condensed w-full" placeholder="Description" value={state.description} onChange={(e)=>setState(s=>({...s, description: e.target.value}))} onBlur={()=>persist({description: state.description})} />
       </div>
 
       <div className="mt-1 text-[11px] text-gray-500">

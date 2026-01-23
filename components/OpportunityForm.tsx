@@ -19,7 +19,6 @@ export default function OpportunityForm({ initial, mode }: Props) {
 
   const [title, setTitle] = useState(initial?.title ?? '')
   const [site, setSite] = useState(initial?.site ?? '')
-  const [description, setDescription] = useState(initial?.description ?? '')
   const [status, setStatus] = useState<OpportunityStatus>((initial?.status as OpportunityStatus) ?? 'New')
   const [priority, setPriority] = useState<OpportunityPriority>((initial?.priority as OpportunityPriority) ?? 'Medium')
   const [targetCloseDate, setTargetCloseDate] = useState(initial?.target_close_date ?? '')
@@ -38,7 +37,6 @@ export default function OpportunityForm({ initial, mode }: Props) {
       const payload = {
         title,
         site,
-        description: description || null,
         status,
         priority,
         target_close_date: targetCloseDate || null,
@@ -115,11 +113,6 @@ export default function OpportunityForm({ initial, mode }: Props) {
           <input inputMode="decimal" placeholder="€" value={priceEur} onChange={(e) => setPriceEur(e.target.value)} className="input" />
         </label>
       </div>
-
-      <label className="flex flex-col gap-1">
-        <span className="text-sm text-gray-700">Description</span>
-        <textarea value={description ?? ''} onChange={(e) => setDescription(e.target.value)} className="input min-h-24" />
-      </label>
 
       <div className="flex gap-2">
         <button type="submit" disabled={loading} className="btn-primary">

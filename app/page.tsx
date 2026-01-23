@@ -272,7 +272,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Status</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Priority</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Closing Date</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '200px'}}>Description</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Units</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '90px'}}>DSS/DSP</th>
@@ -280,14 +279,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Transfer Cost Complete</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Vortice Price</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Comments</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Actions</th>
+                    <th className="px-3 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentOpportunities.length === 0 ? (
                     <tr>
-                      <td colSpan={17} className="px-4 py-8 text-center">
+                      <td colSpan={15} className="px-4 py-8 text-center">
                         <p className="text-gray-500 font-medium">No current opportunities</p>
                       </td>
                     </tr>
@@ -309,7 +307,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         <td className="px-3 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
                         <td className="px-3 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-[10px]" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
@@ -317,8 +314,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><OpportunityActions id={o.id} /></td>
+                        <td className="px-3 py-1.5">
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1">
+                              <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
+                            </div>
+                            <OpportunityActions id={o.id} />
+                          </div>
+                        </td>
                       </tr>
                     ))
                   )}
@@ -343,7 +346,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Status</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Priority</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Closing Date</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '200px'}}>Description</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Units</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '90px'}}>DSS/DSP</th>
@@ -351,14 +353,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                     <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Transfer Cost Complete</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Vortice Price</th>
                     <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Comments</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Actions</th>
+                    <th className="px-3 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {closedOpportunities.length === 0 ? (
                     <tr>
-                      <td colSpan={17} className="px-4 py-8 text-center">
+                      <td colSpan={15} className="px-4 py-8 text-center">
                         <p className="text-gray-500 font-medium">No closed opportunities</p>
                       </td>
                     </tr>
@@ -380,7 +381,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         <td className="px-3 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
                         <td className="px-3 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="description" value={o.description} kind="text" className="text-[10px]" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
@@ -388,8 +388,14 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
                         <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><OpportunityActions id={o.id} /></td>
+                        <td className="px-3 py-1.5">
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1">
+                              <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
+                            </div>
+                            <OpportunityActions id={o.id} />
+                          </div>
+                        </td>
                       </tr>
                     ))
                   )}
