@@ -51,7 +51,7 @@ export default function EditableStatusCell({ id, value }: EditableStatusCellProp
       value={status}
       onChange={(e) => handleChange(e.target.value as OpportunityStatus)}
       disabled={saving}
-      className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset border-none cursor-pointer hover:opacity-80 transition-opacity ${styles[status]} ${saving ? 'opacity-50' : ''}`}
+      className={`inline-flex items-center rounded-md px-1 py-1 text-xs font-medium ring-1 ring-inset border-none cursor-pointer hover:opacity-80 transition-opacity ${styles[status]} ${saving ? 'opacity-50' : ''}`}
     >
       {options.map((opt) => (
         <option key={opt} value={opt}>{opt}</option>

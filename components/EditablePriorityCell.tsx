@@ -48,7 +48,7 @@ export default function EditablePriorityCell({ id, value }: EditablePriorityCell
       value={priority}
       onChange={(e) => handleChange(e.target.value as OpportunityPriority)}
       disabled={saving}
-      className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs ring-1 ring-inset border-none cursor-pointer hover:opacity-80 transition-opacity ${styles[priority]} ${saving ? 'opacity-50' : ''}`}
+      className={`inline-flex items-center gap-1 rounded-md px-1 py-1 text-xs ring-1 ring-inset border-none cursor-pointer hover:opacity-80 transition-opacity ${styles[priority]} ${saving ? 'opacity-50' : ''}`}
     >
       {options.map((opt) => (
         <option key={opt} value={opt}>{icons[opt]} {opt}</option>

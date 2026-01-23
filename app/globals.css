@@ -55,10 +55,10 @@ body {
 
 /* Compact inputs */
 .input-condensed {
-  @apply border rounded-md px-2 py-1 h-8 bg-white border-gray-200 text-sm outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+  @apply border rounded-md px-1 py-1 h-8 bg-white border-gray-200 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
 }
 .select-condensed {
-  @apply border rounded-md px-2 py-1 h-8 bg-white border-gray-200 text-sm outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
+  @apply border rounded-md px-1 py-1 h-8 bg-white border-gray-200 outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500;
 }
 .muted-label { @apply text-[11px] uppercase tracking-wide text-gray-500; }
 

@@ -91,14 +91,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
           <p className="mt-1 text-sm text-gray-600">Track and manage your AHU opportunities</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/upload-data" className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-green-700 shadow-sm hover:shadow-md transition-all duration-150">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-            Upload Excel
-          </Link>
           <Link href="/new" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 text-white text-sm font-medium px-5 py-2.5 hover:bg-blue-700 shadow-sm hover:shadow-md transition-all duration-150">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -265,21 +257,21 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
               <ResizableTable>
                 <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
                   <tr className="text-left text-gray-700 text-xs">
-                    <th className="px-3 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '200px'}}>{sortLink('title','Project Name')}</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>BU</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Site</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Owner</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Status</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Priority</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Closing Date</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Units</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '90px'}}>DSS/DSP</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '130px'}}>Transfer Cost (OH)</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Transfer Cost Complete</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Vortice Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
+                    <th className="px-2 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '250px'}}>{sortLink('title','Project Name')}</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>BU</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>Site</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '100px'}}>Owner</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '95px'}}>Status</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '85px'}}>Priority</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '70px'}}>Closing Date</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '50px'}}>Units</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '55px'}}>DSS/DSP</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '95px'}}>Transfer Cost (OH)</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Transfer Cost Complete</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '85px'}}>Vortice Price</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -292,7 +284,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                   ) : (
                     currentOpportunities.map((o) => (
                       <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
-                        <td className="px-3 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                        <td className="px-2 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                           <EditableCell<any>
                             id={o.id}
                             column="title"
@@ -301,20 +293,21 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                             className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
                           />
                         </td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
-                        <td className="px-3 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5">
+                        <td className="px-0.5 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-[12px]" /></td>
+                        <td className="px-0.5
+                         py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-[12px]" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
+                        <td className="px-1 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5">
                           <div className="flex items-center gap-2">
                             <div className="flex-1">
                               <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
@@ -339,21 +332,21 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
               <ResizableTable>
                 <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
                   <tr className="text-left text-gray-700 text-xs">
-                    <th className="px-3 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '200px'}}>{sortLink('title','Project Name')}</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>BU</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Site</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Owner</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Status</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Priority</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '120px'}}>Closing Date</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '80px'}}>Units</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '90px'}}>DSS/DSP</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '130px'}}>Transfer Cost (OH)</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '150px'}}>Transfer Cost Complete</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Vortice Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-3 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
+                    <th className="px-2 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '250px'}}>{sortLink('title','Project Name')}</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>BU</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>Site</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '100px'}}>Owner</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '95px'}}>Status</th>
+                    <th className="px-1 py-2 font-semibold" style={{width: '85px'}}>Priority</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '70px'}}>Closing Date</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '50px'}}>Units</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '55px'}}>DSS/DSP</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '95px'}}>Transfer Cost (OH)</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Transfer Cost Complete</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '85px'}}>Vortice Price</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
+                    <th className="px-2 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -366,7 +359,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                   ) : (
                     closedOpportunities.map((o) => (
                       <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
-                        <td className="px-3 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                        <td className="px-2 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                           <EditableCell<any>
                             id={o.id}
                             column="title"
@@ -375,20 +368,20 @@ export default async function Home({ searchParams }: { searchParams: Promise<Sea
                             className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
                           />
                         </td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
-                        <td className="px-3 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-3 py-1.5">
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-[12px]" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-[12px]" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
+                        <td className="px-1 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                        <td className="px-1 py-1.5">
                           <div className="flex items-center gap-2">
                             <div className="flex-1">
                               <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
