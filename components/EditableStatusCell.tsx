@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import type { OpportunityStatus } from '@/types/opportunity'
 
@@ -11,6 +12,7 @@ interface EditableStatusCellProps {
 export default function EditableStatusCell({ id, value }: EditableStatusCellProps) {
   const [status, setStatus] = useState<OpportunityStatus>(value)
   const [saving, setSaving] = useState(false)
+  const router = useRouter()
 
   const styles: Record<OpportunityStatus, string> = {
     'New': 'bg-blue-100 text-blue-800 ring-blue-600/20 focus:ring-blue-500',
@@ -31,6 +33,9 @@ export default function EditableStatusCell({ id, value }: EditableStatusCellProp
         .update({ status: newStatus })
         .eq('id', id)
       if (error) throw error
+
+      // Refresh the page to update the table sections
+      router.refresh()
     } catch (e) {
       console.error('Failed to update status:', e)
       setStatus(value) // revert on error
