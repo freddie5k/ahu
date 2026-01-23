@@ -5,7 +5,6 @@ export type Opportunity = {
   id: string
   title: string
   site: string
-  description: string | null
   status: OpportunityStatus
   priority: OpportunityPriority
   target_close_date: string | null

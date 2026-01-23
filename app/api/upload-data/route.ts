@@ -50,7 +50,6 @@ export async function POST(request: NextRequest) {
       if (h === 'status') columnMap.status = index
       if (h === 'priority') columnMap.priority = index
       if (h.includes('closing') && h.includes('date')) columnMap.target_close_date = index
-      if (h === 'description') columnMap.description = index
       if (h.includes('air') && h.includes('flow')) columnMap.air_flow_m3h = index
       if (h.includes('number') && h.includes('unit')) columnMap.number_of_units = index
       if (h.includes('dss') || h.includes('dsp')) columnMap.dss_dsp_design = index
@@ -156,7 +155,6 @@ export async function POST(request: NextRequest) {
           status: getString(row[columnMap.status]) || 'New',
           priority: getString(row[columnMap.priority]) || 'Medium',
           target_close_date: parseDate(row[columnMap.target_close_date]),
-          description: getString(row[columnMap.description]),
           air_flow_m3h: parseCurrency(row[columnMap.air_flow_m3h]),
           number_of_units: getInteger(row[columnMap.number_of_units]),
           dss_dsp_design: getString(row[columnMap.dss_dsp_design]),
