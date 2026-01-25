@@ -8,23 +8,23 @@ interface PriorityBadgeProps {
 }
 
 const PriorityIcon = ({ priority }: { priority: OpportunityPriority }) => {
-  const color = 'currentColor'
+  const color = '#000'
   switch (priority) {
     case 'Low':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Polyline points="6 9 12 15 18 9" />
         </Svg>
       )
     case 'Medium':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Line x1="5" y1="12" x2="19" y2="12" />
         </Svg>
       )
     case 'High':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Polyline points="18 15 12 9 6 15" />
         </Svg>
       )

@@ -8,11 +8,11 @@ interface StatusBadgeProps {
 }
 
 const StatusIcon = ({ status }: { status: OpportunityStatus }) => {
-  const color = 'currentColor'
+  const color = '#000'
   switch (status) {
     case 'New':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Circle cx="12" cy="12" r="10" />
           <Path d="M12 16v-4" />
           <Path d="M12 8h.01" />
@@ -20,28 +20,28 @@ const StatusIcon = ({ status }: { status: OpportunityStatus }) => {
       )
     case 'Qualified':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
           <Polyline points="22 4 12 14.01 9 11.01" />
         </Svg>
       )
     case 'Assessing':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Circle cx="12" cy="12" r="10" />
           <Polyline points="12 6 12 12 16 14" />
         </Svg>
       )
     case 'Quoted':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Line x1="12" y1="1" x2="12" y2="23" />
           <Path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
         </Svg>
       )
     case 'Won':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
           <Path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
           <Path d="M4 22h16" />
@@ -52,7 +52,7 @@ const StatusIcon = ({ status }: { status: OpportunityStatus }) => {
       )
     case 'Lost':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Circle cx="12" cy="12" r="10" />
           <Line x1="15" y1="9" x2="9" y2="15" />
           <Line x1="9" y1="9" x2="15" y2="15" />
@@ -60,7 +60,7 @@ const StatusIcon = ({ status }: { status: OpportunityStatus }) => {
       )
     case 'On Hold':
       return (
-        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2}>
           <Rect x="6" y="4" width="4" height="16" />
           <Rect x="14" y="4" width="4" height="16" />
         </Svg>
