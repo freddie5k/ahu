@@ -17,6 +17,19 @@ interface TableViewsProps {
 export default function TableViews({ column, ascending, sortable }: TableViewsProps) {
   const { currentOpportunities, closedOpportunities } = useFilteredOpportunities()
 
+  // Calculate total value of Won orders (sum of transfer_cost_complete_per_u)
+  const wonOrdersTotal = closedOpportunities
+    .filter(o => o.status === 'Won')
+    .reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+      maximumFractionDigits: 0
+    }).format(value)
+  }
+
   function sortLink(key: keyof typeof sortable, label: string) {
     const active = column === sortable[key]
     const nextDir = !active ? 'asc' : (ascending ? 'desc' : 'asc')
@@ -94,6 +107,14 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
               </div>
             ))
           )}
+        </div>
+
+        {/* Won Orders Summary */}
+        <div className="mx-2 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-green-800">Value of Won Orders</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
+          </div>
         </div>
 
         {/* Closed Projects Section */}
@@ -233,6 +254,14 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                 </tbody>
               </ResizableTable>
             </div>
+          </div>
+        </div>
+
+        {/* Won Orders Summary */}
+        <div className="px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-green-800">Value of Won Orders</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
           </div>
         </div>
 
