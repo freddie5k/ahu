@@ -21,6 +21,7 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
   const wonOrders = closedOpportunities.filter(o => o.status === 'Won')
   const transferPriceTotal = wonOrders.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
   const vorticePriceTotal = wonOrders.reduce((sum, o) => sum + (o.vortice_price || 0), 0)
+  const unitsTotal = wonOrders.reduce((sum, o) => sum + (o.number_of_units || 0), 0)
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('de-DE', {
@@ -107,6 +108,7 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
 
         {/* Won Orders Summary */}
         <div className="mx-2 mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200 space-y-2">
+          <h3 className="text-base font-bold text-green-900">ORDERS WON</h3>
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-green-800">Transfer Price:</span>
             <span className="text-lg font-bold text-green-700">{formatCurrency(transferPriceTotal)}</span>
@@ -114,6 +116,10 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-green-800">Order to MCZ - Vortice Price:</span>
             <span className="text-lg font-bold text-green-700">{formatCurrency(vorticePriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-green-800">Nr. of units:</span>
+            <span className="text-lg font-bold text-green-700">{unitsTotal}</span>
           </div>
         </div>
 
@@ -252,14 +258,21 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
         </div>
 
         {/* Won Orders Summary */}
-        <div className="mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200 flex gap-8">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-green-800">Transfer Price:</span>
-            <span className="text-lg font-bold text-green-700">{formatCurrency(transferPriceTotal)}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-green-800">Order to MCZ - Vortice Price:</span>
-            <span className="text-lg font-bold text-green-700">{formatCurrency(vorticePriceTotal)}</span>
+        <div className="mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+          <h3 className="text-base font-bold text-green-900 mb-2">ORDERS WON</h3>
+          <div className="flex gap-8">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-green-800">Transfer Price:</span>
+              <span className="text-lg font-bold text-green-700">{formatCurrency(transferPriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-green-800">Order to MCZ - Vortice Price:</span>
+              <span className="text-lg font-bold text-green-700">{formatCurrency(vorticePriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-green-800">Nr. of units:</span>
+              <span className="text-lg font-bold text-green-700">{unitsTotal}</span>
+            </div>
           </div>
         </div>
 
