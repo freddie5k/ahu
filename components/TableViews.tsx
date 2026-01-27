@@ -17,10 +17,10 @@ interface TableViewsProps {
 export default function TableViews({ column, ascending, sortable }: TableViewsProps) {
   const { currentOpportunities, closedOpportunities } = useFilteredOpportunities()
 
-  // Calculate total value of Won orders (sum of transfer_cost_complete_per_u)
-  const wonOrdersTotal = closedOpportunities
-    .filter(o => o.status === 'Won')
-    .reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
+  // Calculate totals for Won orders
+  const wonOrders = closedOpportunities.filter(o => o.status === 'Won')
+  const transferPriceTotal = wonOrders.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
+  const vorticePriceTotal = wonOrders.reduce((sum, o) => sum + (o.vortice_price || 0), 0)
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('de-DE', {
@@ -106,10 +106,14 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
         </div>
 
         {/* Won Orders Summary */}
-        <div className="mx-2 mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+        <div className="mx-2 mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200 space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-green-800">Value of Won Orders:</span>
-            <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
+            <span className="text-sm font-medium text-green-800">Transfer Price:</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(transferPriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-green-800">Order to MCZ - Vortice Price:</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(vorticePriceTotal)}</span>
           </div>
         </div>
 
@@ -248,10 +252,14 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
         </div>
 
         {/* Won Orders Summary */}
-        <div className="mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+        <div className="mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200 flex gap-8">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-green-800">Value of Won Orders:</span>
-            <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
+            <span className="text-sm font-medium text-green-800">Transfer Price:</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(transferPriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-green-800">Order to MCZ - Vortice Price:</span>
+            <span className="text-lg font-bold text-green-700">{formatCurrency(vorticePriceTotal)}</span>
           </div>
         </div>
 
