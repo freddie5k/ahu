@@ -80,10 +80,6 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                     <EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-1">Site</div>
-                    <EditableCell<any> id={o.id} column="site" value={o.site} kind="text" />
-                  </div>
-                  <div>
                     <div className="text-xs text-gray-500 mb-1">Owner</div>
                     <EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" />
                   </div>
@@ -110,9 +106,9 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
         </div>
 
         {/* Won Orders Summary */}
-        <div className="mx-2 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-green-800">Value of Won Orders</span>
+        <div className="mx-2 mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-green-800">Value of Won Orders:</span>
             <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
           </div>
         </div>
@@ -151,10 +147,6 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                     <EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" />
                   </div>
                   <div>
-                    <div className="text-xs text-gray-500 mb-1">Site</div>
-                    <EditableCell<any> id={o.id} column="site" value={o.site} kind="text" />
-                  </div>
-                  <div>
                     <div className="text-xs text-gray-500 mb-1">Owner</div>
                     <EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" />
                   </div>
@@ -191,34 +183,33 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
               <ResizableTable>
                 <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
                   <tr className="text-left text-gray-700 text-xs">
-                    <th className="px-2 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '250px'}}>{sortLink('title','Project Name')}</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>BU</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>Site</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '100px'}}>Owner</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '95px'}}>Status</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '85px'}}>Priority</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '70px'}}>Closing Date</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '50px'}}>Units</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '55px'}}>DSS/DSP</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '95px'}}>Transfer Cost (OH)</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Transfer Cost Complete</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '85px'}}>Vortice Price</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
+                    <th className="px-3 py-2.5 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '280px'}}>{sortLink('title','Project Name')}</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '60px'}}>BU</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Owner</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '100px'}}>Status</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '90px'}}>Priority</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '90px'}}>Closing Date</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '110px'}}>Air Flow (m³/h)</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '60px'}}>Units</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '70px'}}>DSS/DSP</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '110px'}}>Transfer Cost (OH)</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Transfer Cost Complete</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '100px'}}>Vortice Price</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Selling Price</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '250px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentOpportunities.length === 0 ? (
                     <tr>
-                      <td colSpan={15} className="px-4 py-8 text-center">
+                      <td colSpan={14} className="px-4 py-8 text-center">
                         <p className="text-gray-500 font-medium">No current opportunities</p>
                       </td>
                     </tr>
                   ) : (
                     currentOpportunities.map((o) => (
                       <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
-                        <td className="px-2 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                        <td className="px-3 py-2 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                           <EditableCell<any>
                             id={o.id}
                             column="title"
@@ -227,20 +218,19 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                             className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
                           />
                         </td>
-                        <td className="px-0.5 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-[12px]" /></td>
-                        <td className="px-0.5 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-[12px]" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
-                        <td className="px-1 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5">
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableStatusCell id={o.id} value={o.status} /></td>
+                        <td className="px-2 py-2"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2">
                           <div className="flex items-center gap-2">
                             <div className="flex-1">
                               <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
@@ -258,9 +248,9 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
         </div>
 
         {/* Won Orders Summary */}
-        <div className="px-4 py-3 bg-green-50 rounded-lg border border-green-200">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-green-800">Value of Won Orders</span>
+        <div className="mt-8 px-4 py-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-green-800">Value of Won Orders:</span>
             <span className="text-lg font-bold text-green-700">{formatCurrency(wonOrdersTotal)}</span>
           </div>
         </div>
@@ -273,34 +263,33 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
               <ResizableTable>
                 <thead className="bg-gradient-to-b from-gray-50 to-gray-100/50 border-b border-gray-200">
                   <tr className="text-left text-gray-700 text-xs">
-                    <th className="px-2 py-2 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '250px'}}>{sortLink('title','Project Name')}</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>BU</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '45px'}}>Site</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '100px'}}>Owner</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '95px'}}>Status</th>
-                    <th className="px-1 py-2 font-semibold" style={{width: '85px'}}>Priority</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '70px'}}>Closing Date</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Air Flow (m³/h)</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '50px'}}>Units</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '55px'}}>DSS/DSP</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '95px'}}>Transfer Cost (OH)</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '100px'}}>Transfer Cost Complete</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '85px'}}>Vortice Price</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '110px'}}>Selling Price</th>
-                    <th className="px-2 py-2 font-semibold" style={{width: '230px'}}>Comments / Actions</th>
+                    <th className="px-3 py-2.5 font-semibold sticky left-0 bg-gray-50 z-10" style={{width: '280px'}}>{sortLink('title','Project Name')}</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '60px'}}>BU</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Owner</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '100px'}}>Status</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '90px'}}>Priority</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '90px'}}>Closing Date</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '110px'}}>Air Flow (m³/h)</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '60px'}}>Units</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '70px'}}>DSS/DSP</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '110px'}}>Transfer Cost (OH)</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Transfer Cost Complete</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '100px'}}>Vortice Price</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '120px'}}>Selling Price</th>
+                    <th className="px-2 py-2.5 font-semibold" style={{width: '250px'}}>Comments / Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {closedOpportunities.length === 0 ? (
                     <tr>
-                      <td colSpan={15} className="px-4 py-8 text-center">
+                      <td colSpan={14} className="px-4 py-8 text-center">
                         <p className="text-gray-500 font-medium">No closed opportunities</p>
                       </td>
                     </tr>
                   ) : (
                     closedOpportunities.map((o) => (
                       <tr key={o.id} className="group hover:bg-gradient-to-r hover:from-blue-50/40 hover:to-blue-50/20 transition-all duration-200 border-b border-gray-100 last:border-b-0 text-xs">
-                        <td className="px-2 py-1.5 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
+                        <td className="px-3 py-2 sticky left-0 bg-white group-hover:bg-blue-50/40 z-10">
                           <EditableCell<any>
                             id={o.id}
                             column="title"
@@ -309,20 +298,19 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                             className="font-semibold text-gray-900 bg-transparent border-transparent focus:ring-blue-500 focus:border-blue-500 text-xs"
                           />
                         </td>
-                        <td className="px-0.5 py-1.5"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-[12px]" /></td>
-                        <td className="px-0.5 py-1.5"><EditableCell<any> id={o.id} column="site" value={o.site} kind="text" className="text-[12px]" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableStatusCell id={o.id} value={o.status} /></td>
-                        <td className="px-1 py-1.5"><EditablePriorityCell id={o.id} value={o.priority} /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
-                        <td className="px-1 py-1.5">
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="bu" value={o.bu} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="owner_name" value={o.owner_name} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableStatusCell id={o.id} value={o.status} /></td>
+                        <td className="px-2 py-2"><EditablePriorityCell id={o.id} value={o.priority} /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="target_close_date" value={o.target_close_date} kind="date" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="air_flow_m3h" value={o.air_flow_m3h} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="number_of_units" value={o.number_of_units} kind="number" className="numeric text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="dss_dsp_design" value={o.dss_dsp_design} kind="text" className="text-xs" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="transfer_cost_without_oh_profit_8_per_u" value={o.transfer_cost_without_oh_profit_8_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="transfer_cost_complete_per_u" value={o.transfer_cost_complete_per_u} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="vortice_price" value={o.vortice_price} kind="number" className="numeric text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2"><EditableCell<any> id={o.id} column="selling_price" value={o.selling_price} kind="number" className="numeric price-cell text-xs" placeholder="€" /></td>
+                        <td className="px-2 py-2">
                           <div className="flex items-center gap-2">
                             <div className="flex-1">
                               <EditableCell<any> id={o.id} column="comments" value={o.comments} kind="text" className="text-xs" />
