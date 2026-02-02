@@ -17,6 +17,11 @@ interface TableViewsProps {
 export default function TableViews({ column, ascending, sortable }: TableViewsProps) {
   const { currentOpportunities, closedOpportunities } = useFilteredOpportunities()
 
+  // Calculate totals for Current opportunities
+  const currentTransferPriceTotal = currentOpportunities.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
+  const currentVorticePriceTotal = currentOpportunities.reduce((sum, o) => sum + (o.vortice_price || 0), 0)
+  const currentUnitsTotal = currentOpportunities.reduce((sum, o) => sum + (o.number_of_units || 0), 0)
+
   // Calculate totals for Won orders
   const wonOrders = closedOpportunities.filter(o => o.status === 'Won')
   const transferPriceTotal = wonOrders.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
@@ -104,6 +109,23 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
               </div>
             ))
           )}
+        </div>
+
+        {/* Current Summary */}
+        <div className="mx-2 mt-8 px-4 py-3 bg-blue-50 rounded-lg border border-blue-200 space-y-2">
+          <h3 className="text-base font-bold text-blue-900">CURRENT SUMMARY</h3>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Transfer Price:</span>
+            <span className="text-lg font-bold text-blue-700">{formatCurrency(currentTransferPriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Order to MCZ - Vortice Price:</span>
+            <span className="text-lg font-bold text-blue-700">{formatCurrency(currentVorticePriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Nr. of units:</span>
+            <span className="text-lg font-bold text-blue-700">{currentUnitsTotal}</span>
+          </div>
         </div>
 
         {/* Won Orders Summary */}
@@ -253,6 +275,25 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
                   )}
                 </tbody>
               </ResizableTable>
+            </div>
+          </div>
+        </div>
+
+        {/* Current Summary */}
+        <div className="mt-8 px-4 py-3 bg-blue-50 rounded-lg border border-blue-200">
+          <h3 className="text-base font-bold text-blue-900 mb-2">CURRENT SUMMARY</h3>
+          <div className="flex gap-8">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Transfer Price:</span>
+              <span className="text-lg font-bold text-blue-700">{formatCurrency(currentTransferPriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Order to MCZ - Vortice Price:</span>
+              <span className="text-lg font-bold text-blue-700">{formatCurrency(currentVorticePriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Nr. of units:</span>
+              <span className="text-lg font-bold text-blue-700">{currentUnitsTotal}</span>
             </div>
           </div>
         </div>
