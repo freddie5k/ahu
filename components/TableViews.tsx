@@ -17,6 +17,11 @@ interface TableViewsProps {
 export default function TableViews({ column, ascending, sortable }: TableViewsProps) {
   const { currentOpportunities, closedOpportunities } = useFilteredOpportunities()
 
+  // Calculate totals for Current opportunities
+  const currentTransferPriceTotal = currentOpportunities.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
+  const currentVorticePriceTotal = currentOpportunities.reduce((sum, o) => sum + (o.vortice_price || 0), 0)
+  const currentUnitsTotal = currentOpportunities.reduce((sum, o) => sum + (o.number_of_units || 0), 0)
+
   // Calculate totals for Won orders
   const wonOrders = closedOpportunities.filter(o => o.status === 'Won')
   const transferPriceTotal = wonOrders.reduce((sum, o) => sum + (o.transfer_cost_complete_per_u || 0), 0)
@@ -47,6 +52,23 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
     <>
       {/* Mobile Card View */}
       <div className="md:hidden space-y-6">
+        {/* Current Summary */}
+        <div className="mx-2 px-4 py-3 bg-blue-50 rounded-lg border border-blue-200 space-y-2">
+          <h3 className="text-base font-bold text-blue-900">CURRENT SUMMARY</h3>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Transfer Price:</span>
+            <span className="text-lg font-bold text-blue-700">{formatCurrency(currentTransferPriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Order to MCZ - Vortice Price:</span>
+            <span className="text-lg font-bold text-blue-700">{formatCurrency(currentVorticePriceTotal)}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-blue-800">Nr. of units:</span>
+            <span className="text-lg font-bold text-blue-700">{currentUnitsTotal}</span>
+          </div>
+        </div>
+
         {/* Current Projects Section */}
         <div className="space-y-3">
           <h2 className="text-lg font-semibold text-gray-900 px-2">Current</h2>
@@ -185,6 +207,25 @@ export default function TableViews({ column, ascending, sortable }: TableViewsPr
 
       {/* Desktop Table View */}
       <div className="hidden md:block space-y-6">
+        {/* Current Summary */}
+        <div className="px-4 py-3 bg-blue-50 rounded-lg border border-blue-200">
+          <h3 className="text-base font-bold text-blue-900 mb-2">CURRENT SUMMARY</h3>
+          <div className="flex gap-8">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Transfer Price:</span>
+              <span className="text-lg font-bold text-blue-700">{formatCurrency(currentTransferPriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Order to MCZ - Vortice Price:</span>
+              <span className="text-lg font-bold text-blue-700">{formatCurrency(currentVorticePriceTotal)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-blue-800">Nr. of units:</span>
+              <span className="text-lg font-bold text-blue-700">{currentUnitsTotal}</span>
+            </div>
+          </div>
+        </div>
+
         {/* Current Projects Section */}
         <div className="space-y-3">
           <h2 className="text-xl font-semibold text-gray-900">Current</h2>
